@@ -1,0 +1,29 @@
+import axios from "axios";
+
+export async function getCotsOrderStatus(von, lastName) {
+  const { data } = await axios.get(
+    `https://www.jeep.com/hostz/cots/order-status/${von}/${lastName}`
+  );
+
+  const { orderstatus, vinDetails } = data;
+
+  const currentStatuses = orderstatus.filter(
+    (status) => status.currentStatus === status.display
+  );
+  const { statusCode, statusDesc, statusUpdateDate } = currentStatuses.pop();
+  const { brandName, modelYear, modelName, image, vin } = vinDetails;
+
+  return {
+    statusCode,
+    statusDesc,
+    statusUpdateDate,
+    brandName,
+    modelYear,
+    modelName,
+    vehicle: `${modelYear} ${modelName}`,
+    image: `${image}&width=714&height=300&bkgnd=transparent&resp=png`,
+    vin,
+    von,
+  };
+  return data;
+}
