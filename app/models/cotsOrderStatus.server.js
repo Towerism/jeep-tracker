@@ -8,7 +8,7 @@ export async function getCotsOrderStatus(von, lastName) {
   const { orderstatus, vinDetails } = data;
 
   const currentStatuses = orderstatus.filter(
-    (status) => status.currentStatus === status.display
+    (status) => !!status.statusUpdateDate
   );
   const { statusCode, statusDesc, statusUpdateDate } = currentStatuses.pop();
   const { brandName, modelYear, modelName, image, vin } = vinDetails;
@@ -20,10 +20,23 @@ export async function getCotsOrderStatus(von, lastName) {
     brandName,
     modelYear,
     modelName,
+    rpoCodes: getRpoCodes(image),
+    timeline: orderstatus.map((os) => ({
+      milestoneName: os.statusDesc,
+      completed: !!os.statusUpdateDate,
+      completedDate: os.statusUpdateDate,
+    })),
     vehicle: `${modelYear} ${modelName}`,
     image: `${image}&width=714&height=300&bkgnd=transparent&resp=png`,
     vin,
     von,
   };
-  return data;
+}
+
+function getRpoCodes(imageUrl) {
+  const [,querystring] = imageUrl.split("?");
+  const params = new Proxy(new URLSearchParams(querystring), {
+    get: (searchParams, prop) => searchParams.get(prop),
+  });
+  return params.sa.split(",");
 }
