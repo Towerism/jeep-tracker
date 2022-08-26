@@ -1,3 +1,6 @@
+import { Box } from "@mui/material";
+import Grid from "@mui/material/Unstable_Grid2";
+import { Container } from "@mui/system";
 import { json } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 
@@ -10,11 +13,19 @@ export const loader = async ({ params }) => {
 };
 
 export default function OrderStatus() {
-  const result = useLoaderData();
-  const str = JSON.stringify(result);
+  const { image, statusCode, statusDesc } = useLoaderData();
   return (
     <main>
-      <p>{str}</p>
+      <Box>
+        <Grid container>
+          <Grid sx={{textAlign: "center"}}>
+            <img src={image} style={{width: "90%"}} />
+          </Grid>
+          <Grid>
+            {statusCode}: {statusDesc}
+          </Grid>
+        </Grid>
+      </Box>
     </main>
   );
 }

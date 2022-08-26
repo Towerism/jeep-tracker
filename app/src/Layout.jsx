@@ -5,7 +5,7 @@ import Copyright from "./Copyright";
 
 export default function Layout({ children }) {
   return (
-    <Container maxWidth="sm">
+    <Container maxWidth="lg">
       <Box sx={{ my: 4 }}>
         {children}
         <Copyright />
