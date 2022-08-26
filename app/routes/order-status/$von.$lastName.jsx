@@ -26,27 +26,60 @@ function BasicStatusCard({ title, children }) {
   );
 }
 
+function DocumentCard({ title, url, found }) {
+  return (
+    <BasicStatusCard title={title}>
+      {found ? <a href={url}>Found</a> : "Not yet"}
+    </BasicStatusCard>
+  );
+}
+
 export default function OrderStatus() {
-  const { image, statusCode, statusDesc, vehicle, von, vin } = useLoaderData();
+  const {
+    image,
+    statusCode,
+    statusDesc,
+    vehicle,
+    von,
+    vin,
+    windowStickerFound,
+    windowStickerUrl,
+    buildSheetFound,
+    buildSheetUrl,
+  } = useLoaderData();
   return (
     <main>
       <Box>
         <Grid container>
-          <Grid sx={{ textAlign: "center" }}>
+          <Grid sx={{ textAlign: "center" }} md={6}>
             <img src={image} alt={vehicle} style={{ width: "90%" }} />
           </Grid>
-          <Grid>
-            <Grid container>
+          <Grid md={6}>
+            <Grid container spacing={2}>
               <Grid>
                 <BasicStatusCard title="Order number">{von}</BasicStatusCard>
               </Grid>
               <Grid>
-                <BasicStatusCard title="Order status">
+                <BasicStatusCard title="Current status">
                   {statusCode} - {statusDesc}
                 </BasicStatusCard>
               </Grid>
-              <Grid>
+              <Grid md={8}>
                 <BasicStatusCard title="VIN">{vin}</BasicStatusCard>
+              </Grid>
+              <Grid md={5}>
+                <DocumentCard
+                  title="Window sticker"
+                  found={windowStickerFound}
+                  url={windowStickerUrl}
+                />
+              </Grid>
+              <Grid md={5}>
+                <DocumentCard
+                  title="Build sheet"
+                  found={buildSheetFound}
+                  url={buildSheetUrl}
+                />
               </Grid>
             </Grid>
           </Grid>

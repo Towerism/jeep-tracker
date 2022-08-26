@@ -27,7 +27,7 @@ export async function getCotsOrderStatus(von, lastName) {
       completedDate: os.statusUpdateDate,
     })),
     vehicle: `${modelYear} ${modelName}`,
-    image: `${image}&width=714&height=300&bkgnd=transparent&resp=png`,
+    image: `${image}&width=826&height=600&bkgnd=transparent&resp=png`,
     vin,
     von,
   };
