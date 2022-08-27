@@ -1,13 +1,9 @@
 import { redirect } from "@remix-run/node";
-import { Form } from "@remix-run/react";
+import { Form, useTransition } from "@remix-run/react";
 import * as React from "react";
-import Button from "@mui/material/Button";
+import LoadingButton from "@mui/lab/LoadingButton";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
-import Link from "@mui/material/Link";
-import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
@@ -21,6 +17,7 @@ export const action = async ({ request }) => {
 };
 
 export default function Index() {
+  const transition = useTransition();
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -53,14 +50,15 @@ export default function Index() {
             label="Last name"
             id="lastName"
           />
-          <Button
+          <LoadingButton
             type="submit"
+            loading={transition.state !== "idle"}
             fullWidth
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
           >
             Get my order status
-          </Button>
+          </LoadingButton>
         </Box>
       </Box>
     </Container>
