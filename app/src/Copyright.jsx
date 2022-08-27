@@ -1,24 +1,54 @@
 import * as React from "react";
 import Typography from "@mui/material/Typography";
 import Link from "@mui/material/Link";
+import Box from "@mui/material/Box";
+
+const useIsSsr = () => {
+  const [isSsr, setIsSsr] = React.useState(true);
+
+  React.useEffect(() => {
+    setIsSsr(false);
+  }, []);
+
+  return isSsr;
+};
+
+const useHostname = () => {
+  const isSsr = useIsSsr();
+
+  return isSsr ? "" : window.location.hostname;
+};
 
 export default function Copyright() {
+  const hostname = useHostname();
   return (
-    <Typography variant="body2" color="text.secondary" align="center">
-      {"Copyright © "}
-      <Link color="inherit" href="https://martinfrackerjr.com/" target="_blank">
-        Martin Fracker, Jr.
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {". "}
-      <Link
-        color="inherit"
-        href="https://github.com/towerism/jeep-tracker"
-        target="_blank"
-      >
-        Source
-      </Link>
-      .
-    </Typography>
+    <Box>
+      <Typography variant="body2" color="text.secondary" align="center">
+        {"Copyright © "}
+        <Link
+          color="inherit"
+          href="https://martinfrackerjr.com/"
+          target="_blank"
+        >
+          Martin Fracker, Jr.
+        </Link>{" "}
+        {new Date().getFullYear()}
+        {". "}
+        <Link
+          color="inherit"
+          href="https://github.com/towerism/jeep-tracker"
+          target="_blank"
+        >
+          Source
+        </Link>
+        .
+      </Typography>
+      <Box sx={{ textAlign: "center", mt: 2 }}>
+        <Typography variant="caption" color="InactiveCaptionText">
+          {hostname} is not affiliated with Jeep® or Chrysler Group LLC. Jeep is
+          a registered trademark of Chrysler Group LLC.
+        </Typography>
+      </Box>
+    </Box>
   );
 }
