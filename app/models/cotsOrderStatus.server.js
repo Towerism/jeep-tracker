@@ -20,7 +20,6 @@ export async function getCotsOrderStatus(von, lastName) {
     brandName,
     modelYear,
     modelName,
-    rpoCodes: getRpoCodes(image),
     timeline: orderstatus.map((os) => ({
       milestoneName: os.statusDesc,
       completed: !!os.statusUpdateDate,
@@ -30,13 +29,20 @@ export async function getCotsOrderStatus(von, lastName) {
     image: `${image}&width=826&height=600&bkgnd=transparent&resp=png`,
     vin,
     von,
+    ...getVehicleSpecs(image)
   };
 }
 
-function getRpoCodes(imageUrl) {
+function getVehicleSpecs(imageUrl) {
   const [,querystring] = imageUrl.split("?");
   const params = new Proxy(new URLSearchParams(querystring), {
     get: (searchParams, prop) => searchParams.get(prop),
   });
-  return params.sa.split(",");
+  const [,specModel] = params.vehicle.split("_");
+  const [trimCode, ...rpoCodes] = params.sa.split(",");
+  return {
+    trimCode,
+    rpoCodes,
+    specModel
+  };
 }

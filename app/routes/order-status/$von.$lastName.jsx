@@ -46,6 +46,10 @@ export default function OrderStatus() {
     windowStickerUrl,
     buildSheetFound,
     buildSheetUrl,
+    modelYear,
+    brandName,
+    specModel,
+    trimCode
   } = useLoaderData();
   return (
     <main>
@@ -80,6 +84,27 @@ export default function OrderStatus() {
                   found={buildSheetFound}
                   url={buildSheetUrl}
                 />
+              </Grid>
+            </Grid>
+          </Grid>
+        </Grid>
+        <Grid container>
+          <Grid xs={6}>
+            <Typography align="center" variant="h4" gutterBottom>
+              Vehicle specs
+            </Typography>
+            <Grid container spacing={2}>
+              <Grid>
+                <BasicStatusCard title="Year">{modelYear}</BasicStatusCard>
+              </Grid>
+              <Grid>
+                <BasicStatusCard title="Make">{brandName}</BasicStatusCard>
+              </Grid>
+              <Grid>
+                <BasicStatusCard title="Model">{specModel}</BasicStatusCard>
+              </Grid>
+              <Grid>
+                <BasicStatusCard title="Trim code">{trimCode}</BasicStatusCard>
               </Grid>
             </Grid>
           </Grid>
