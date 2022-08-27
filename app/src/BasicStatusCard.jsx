@@ -4,7 +4,7 @@ import Grid from "@mui/material/Unstable_Grid2";
 export function BasicStatusCard({ title, children, ...props }) {
   return (
     <Grid {...props}>
-      <Card sx={{ minWidth: 150 }}>
+      <Card sx={{ minWidth: 100 }}>
         <CardContent>
           <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
             {title}
