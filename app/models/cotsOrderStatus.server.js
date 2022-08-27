@@ -21,7 +21,8 @@ export async function getCotsOrderStatus(von, lastName) {
     modelYear,
     modelName,
     timeline: orderstatus.map((os) => ({
-      milestoneName: os.statusDesc,
+      code: os.statusCode,
+      name: os.statusDesc,
       completed: !!os.statusUpdateDate,
       completedDate: os.statusUpdateDate,
     })),
