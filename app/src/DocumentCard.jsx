@@ -1,8 +1,8 @@
 import { BasicStatusCard } from "./BasicStatusCard";
 
-export function DocumentCard({ title, url, found }) {
+export function DocumentCard({ url, found, ...props }) {
   return (
-    <BasicStatusCard title={title}>
+    <BasicStatusCard {...props}>
       {found ? <a href={url}>Found</a> : "Not yet"}
     </BasicStatusCard>
   );
