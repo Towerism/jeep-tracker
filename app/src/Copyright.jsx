@@ -9,7 +9,16 @@ export default function Copyright() {
       <Link color="inherit" href="https://martinfrackerjr.com/" target="_blank">
         Martin Fracker, Jr.
       </Link>{" "}
-      {new Date().getFullYear()}.
+      {new Date().getFullYear()}
+      {". "}
+      <Link
+        color="inherit"
+        href="https://github.com/towerism/jeep-tracker"
+        target="_blank"
+      >
+        Source
+      </Link>
+      .
     </Typography>
   );
 }

@@ -1,9 +1,16 @@
 import { BasicStatusCard } from "./BasicStatusCard";
+import Link from "@mui/material/Link";
 
 export function DocumentCard({ url, found, ...props }) {
   return (
     <BasicStatusCard {...props}>
-      {found ? <a href={url}>Found</a> : "Not yet"}
+      {found ? (
+        <Link href={url} target="_blank" color="inherit">
+          Found
+        </Link>
+      ) : (
+        "Not yet"
+      )}
     </BasicStatusCard>
   );
 }
