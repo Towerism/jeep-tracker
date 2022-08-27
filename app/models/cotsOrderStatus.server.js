@@ -5,7 +5,7 @@ export async function getCotsOrderStatus(von, lastName) {
     `https://www.jeep.com/hostz/cots/order-status/${von}/${lastName}`
   );
 
-  const { orderstatus, vinDetails } = data;
+  const { orderstatus, vinDetails, dealerDetails } = data;
 
   const currentStatuses = orderstatus.filter(
     (status) => !!status.statusUpdateDate
@@ -31,6 +31,7 @@ export async function getCotsOrderStatus(von, lastName) {
     image: `${image}&width=826&height=600&bkgnd=transparent&resp=png`,
     vin,
     von,
+    dealer: dealerDetails,
     ...getVehicleSpecs(image)
   };
 }

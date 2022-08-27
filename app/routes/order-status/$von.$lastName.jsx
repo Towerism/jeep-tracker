@@ -36,6 +36,7 @@ export default function OrderStatus() {
     arrivalDate,
     paintCode,
     interiorCode,
+    dealer,
   } = useLoaderData();
   return (
     <main>
@@ -95,6 +96,25 @@ export default function OrderStatus() {
               Milestones
             </Typography>
             <MilestoneTimeline timeline={timeline} />
+          </Grid>
+        </Grid>
+        <Grid container>
+          <Grid sx={{ my: 2 }} xs={12}>
+            <Typography align="center" variant="h4" gutterBottom>
+              Dealership
+            </Typography>
+            <Typography align="center" variant="h5" gutterBottom>
+              {dealer.name}
+            </Typography>
+          </Grid>
+          <Grid container spacing={2} justifyContent="center" xs={12}>
+            <BasicStatusCard title="Address">{dealer.address}</BasicStatusCard>
+            <BasicStatusCard title="City">{dealer.city}</BasicStatusCard>
+            <BasicStatusCard title="State">{dealer.state}</BasicStatusCard>
+            <BasicStatusCard title="Zip">{dealer.zip}</BasicStatusCard>
+            <BasicStatusCard title="Phone number">
+              {dealer.phoneNumber}
+            </BasicStatusCard>
           </Grid>
         </Grid>
       </Box>
