@@ -8,7 +8,9 @@ export default function Layout({ children }) {
     <Container maxWidth="lg">
       <Box sx={{ my: 4 }}>
         {children}
-        <Copyright />
+        <Box sx={{ mt: 4 }}>
+          <Copyright sx={{ mt: 4 }} />
+        </Box>
       </Box>
     </Container>
   );
