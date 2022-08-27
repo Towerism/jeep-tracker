@@ -10,7 +10,7 @@ export async function getCotsOrderStatus(von, lastName) {
   const currentStatuses = orderstatus.filter(
     (status) => !!status.statusUpdateDate
   );
-  const { statusCode, statusDesc, statusUpdateDate } = currentStatuses.pop();
+  const { statusCode, statusDesc, statusUpdateDate, arrivalDate } = currentStatuses.pop();
   const { brandName, modelYear, modelName, image, vin } = vinDetails;
 
   return {
@@ -20,6 +20,7 @@ export async function getCotsOrderStatus(von, lastName) {
     brandName,
     modelYear,
     modelName,
+    arrivalDate,
     timeline: orderstatus.map((os) => ({
       code: os.statusCode,
       name: os.statusDesc,
@@ -44,6 +45,8 @@ function getVehicleSpecs(imageUrl) {
   return {
     trimCode,
     rpoCodes,
-    specModel
+    specModel,
+    paintCode: params.paint,
+    interiorCode: params.fabric
   };
 }

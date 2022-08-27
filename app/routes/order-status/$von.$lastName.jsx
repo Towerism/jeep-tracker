@@ -27,11 +27,15 @@ export default function OrderStatus() {
     windowStickerUrl,
     buildSheetFound,
     buildSheetUrl,
+    modelName,
     modelYear,
     brandName,
     specModel,
     trimCode,
     timeline,
+    arrivalDate,
+    paintCode,
+    interiorCode,
   } = useLoaderData();
   return (
     <main>
@@ -61,6 +65,11 @@ export default function OrderStatus() {
                 url={buildSheetUrl}
                 md={5}
               />
+              {arrivalDate && (
+                <BasicStatusCard title="Est. arrival" md={5}>
+                  {arrivalDate}
+                </BasicStatusCard>
+              )}
             </Grid>
           </Grid>
         </Grid>
@@ -72,8 +81,13 @@ export default function OrderStatus() {
             <Grid container spacing={2}>
               <BasicStatusCard title="Year">{modelYear}</BasicStatusCard>
               <BasicStatusCard title="Make">{brandName}</BasicStatusCard>
-              <BasicStatusCard title="Model">{specModel}</BasicStatusCard>
+              <BasicStatusCard title="Model code">{specModel}</BasicStatusCard>
               <BasicStatusCard title="Trim code">{trimCode}</BasicStatusCard>
+              <BasicStatusCard title="Model">{modelName}</BasicStatusCard>
+              <BasicStatusCard title="Interior code">
+                {interiorCode}
+              </BasicStatusCard>
+              <BasicStatusCard title="Paint code">{paintCode}</BasicStatusCard>
             </Grid>
           </Grid>
           <Grid sx={{ mt: 2 }} md={6}>
