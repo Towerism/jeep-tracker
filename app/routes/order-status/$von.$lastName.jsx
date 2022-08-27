@@ -1,4 +1,4 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, Chip } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
 import { json } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
@@ -37,6 +37,7 @@ export default function OrderStatus() {
     paintCode,
     interiorCode,
     dealer,
+    rpoCodes,
   } = useLoaderData();
   return (
     <main>
@@ -75,7 +76,7 @@ export default function OrderStatus() {
           </Grid>
         </Grid>
         <Grid container>
-          <Grid sx={{ mt: 2 }} md={6}>
+          <Grid sx={{ mt: 4 }} md={6}>
             <Typography align="center" variant="h4" gutterBottom>
               Vehicle specs
             </Typography>
@@ -91,7 +92,7 @@ export default function OrderStatus() {
               <BasicStatusCard title="Paint code">{paintCode}</BasicStatusCard>
             </Grid>
           </Grid>
-          <Grid sx={{ mt: 2 }} md={6}>
+          <Grid sx={{ mt: 4 }} md={6}>
             <Typography align="center" variant="h4" gutterBottom>
               Milestones
             </Typography>
@@ -99,7 +100,19 @@ export default function OrderStatus() {
           </Grid>
         </Grid>
         <Grid container>
-          <Grid sx={{ my: 2 }} xs={12}>
+          <Grid sx={{ my: 4 }} xs={12}>
+            <Typography align="center" variant="h4" gutterBottom>
+              Option codes
+            </Typography>
+          </Grid>
+          <Grid container spacing={2} justifyContent="center" xs={12}>
+            {rpoCodes.map((rpo) => (
+              <Chip key={rpo} label={rpo} sx={{ mr: 1, my: 1 }} />
+            ))}
+          </Grid>
+        </Grid>
+        <Grid container>
+          <Grid sx={{ my: 4 }} xs={12}>
             <Typography align="center" variant="h4" gutterBottom>
               Dealership
             </Typography>
