@@ -116,7 +116,7 @@ export default function OrderStatus() {
           </Grid>
         </Grid>
         <Grid container sx={{ mt: 2 }}>
-          <Grid xs={6}>
+          <Grid md={6}>
             <Typography align="center" variant="h4" gutterBottom>
               Vehicle specs
             </Typography>
@@ -127,7 +127,7 @@ export default function OrderStatus() {
               <BasicStatusCard title="Trim code">{trimCode}</BasicStatusCard>
             </Grid>
           </Grid>
-          <Grid xs={6}>
+          <Grid md={6}>
             <Typography align="center" variant="h4" gutterBottom>
               Timeline
             </Typography>
