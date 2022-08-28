@@ -5,7 +5,7 @@ import rpoMap from "~/src/rpoMap";
 import theme from "~/src/theme";
 
 export function VehicleOptionCodes({ rpoCodes }) {
-  const [shouldDecode, setShouldDecode] = useState(false);
+  const [shouldDecode, setShouldDecode] = useState(true);
 
   let mappedOptions;
   if (shouldDecode) {
