@@ -1,4 +1,5 @@
 import * as React from "react";
+import { json } from "@remix-run/node";
 import {
   Links,
   LiveReload,
@@ -7,18 +8,27 @@ import {
   Scripts,
   ScrollRestoration,
   useCatch,
+  useLoaderData,
+  useLocation,
 } from "@remix-run/react";
 import { withEmotionCache } from "@emotion/react";
 import { unstable_useEnhancedEffect } from "@mui/material";
 import theme from "./src/theme";
 import ClientStyleContext from "./src/ClientStyleContext";
 import Layout from "./src/Layout";
+import * as gtag from "~/src/gtags.client";
+
+export const loader = async () => {
+  return json({ gaTrackingId: process.env.GA_TRACKING_ID });
+};
 
 const useEnhancedEffect =
   typeof window !== "undefined" ? unstable_useEnhancedEffect : React.useEffect;
 
 const Document = withEmotionCache(({ children, title }, emotionCache) => {
   const clientStyleData = React.useContext(ClientStyleContext);
+  const location = useLocation();
+  const { gaTrackingId } = useLoaderData();
 
   // Only executed on client
   useEnhancedEffect(() => {
@@ -33,8 +43,13 @@ const Document = withEmotionCache(({ children, title }, emotionCache) => {
     });
     // reset cache to reapply global styles
     clientStyleData.reset();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  React.useEffect(() => {
+    if (gaTrackingId?.length) {
+      gtag.pageview(location.pathname, gaTrackingId);
+    }
+  }, [location, gaTrackingId]);
 
   return (
     <html lang="en">
@@ -55,6 +70,28 @@ const Document = withEmotionCache(({ children, title }, emotionCache) => {
         />
       </head>
       <body>
+        {process.env.NODE_ENV === "development" || !gaTrackingId ? null : (
+          <>
+            <script
+              async
+              src={`https://www.googletagmanager.com/gtag/js?id=${gaTrackingId}`}
+            />
+            <script
+              async
+              id="gtag-init"
+              dangerouslySetInnerHTML={{
+                __html: `
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', '${gaTrackingId}', {
+                  page_path: window.location.pathname,
+                });
+              `,
+              }}
+            />
+          </>
+        )}
         {children}
         <ScrollRestoration />
         <Scripts />
