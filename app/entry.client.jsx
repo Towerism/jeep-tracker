@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useState } from "react";
-import { hydrate } from "react-dom";
+import { hydrateRoot } from "react-dom/client";
 import { RemixBrowser } from "@remix-run/react";
 import { CacheProvider } from "@emotion/react";
 import { ThemeProvider } from "@mui/material/styles";
@@ -23,13 +23,13 @@ function ClientCacheProvider({ children }) {
   );
 }
 
-hydrate(
+hydrateRoot(
+  document,
   <ClientCacheProvider>
     <ThemeProvider theme={theme}>
       {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
       <CssBaseline />
       <RemixBrowser />
     </ThemeProvider>
-  </ClientCacheProvider>,
-  document
+  </ClientCacheProvider>
 );
