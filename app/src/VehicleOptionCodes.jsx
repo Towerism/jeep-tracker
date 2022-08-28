@@ -26,7 +26,7 @@ export function VehicleOptionCodes({ rpoCodes }) {
           <FormControlLabel
             control={
               <Switch
-                value={shouldDecode}
+                defaultChecked
                 onChange={(event) => setShouldDecode(event.target.checked)}
               />
             }
