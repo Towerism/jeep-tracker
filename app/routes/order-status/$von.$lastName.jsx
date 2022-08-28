@@ -39,6 +39,7 @@ export default function OrderStatus() {
     interiorCode,
     dealer,
     rpoCodes,
+    statusUpdateDate,
   } = useLoaderData();
 
   const basicTrackingData = {
@@ -51,6 +52,7 @@ export default function OrderStatus() {
     buildSheetFound,
     buildSheetUrl,
     arrivalDate,
+    statusUpdateDate,
   };
 
   return (

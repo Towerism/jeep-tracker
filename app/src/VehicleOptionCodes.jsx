@@ -1,13 +1,7 @@
-import {
-  Box,
-  Typography,
-  Chip,
-  Switch,
-  FormControlLabel,
-  Tooltip,
-} from "@mui/material";
+import { Box, Typography, Chip, Tooltip } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
 import { useState } from "react";
+import { Switch } from "./Switch";
 import theme from "~/src/theme";
 
 function OptionChip({ decoded, label }) {
@@ -29,14 +23,10 @@ export function VehicleOptionCodes({ rpoCodes }) {
           Option codes
         </Typography>
         <Box align="center">
-          <FormControlLabel
-            control={
-              <Switch
-                defaultChecked
-                onChange={(event) => setShowDecoded(event.target.checked)}
-              />
-            }
+          <Switch
             label="Show order guide options only"
+            defaultChecked
+            onChange={(event) => setShowDecoded(event.target.checked)}
           />
         </Box>
         {rpoCodes.length !== codes.length && (
