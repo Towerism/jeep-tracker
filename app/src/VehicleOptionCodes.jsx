@@ -11,13 +11,7 @@ import { useState } from "react";
 import theme from "~/src/theme";
 
 function OptionChip({ decoded, label }) {
-  return (
-    <Chip
-      label={label}
-      sx={{ mr: 1, my: 1 }}
-      color={decoded ? "info" : "default"}
-    />
-  );
+  return <Chip label={label} color={decoded ? "info" : "default"} />;
 }
 
 export function VehicleOptionCodes({ rpoCodes }) {
@@ -56,26 +50,23 @@ export function VehicleOptionCodes({ rpoCodes }) {
           </Typography>
         )}
       </Grid>
-      <Grid container spacing={2} justifyContent="center" xs={12}>
-        {codes.map(([code, decoded, display]) =>
-          decoded && !showDecoded ? (
-            <Tooltip key={code} title={display} placement="top">
-              <Box>
-                <OptionChip
-                  key={code}
-                  decoded
-                  label={showDecoded ? display : code}
-                />
-              </Box>
-            </Tooltip>
-          ) : (
-            <OptionChip
-              key={code}
-              decoded={decoded}
-              label={showDecoded ? display : code}
-            />
-          )
-        )}
+      <Grid container spacing={1} justifyContent="center" xs={12}>
+        {codes.map(([code, decoded, display]) => (
+          <Grid key={code}>
+            {decoded && !showDecoded ? (
+              <Tooltip title={display} placement="top">
+                <Box>
+                  <OptionChip decoded label={showDecoded ? display : code} />
+                </Box>
+              </Tooltip>
+            ) : (
+              <OptionChip
+                decoded={decoded}
+                label={showDecoded ? display : code}
+              />
+            )}
+          </Grid>
+        ))}
       </Grid>
     </Grid>
   );
