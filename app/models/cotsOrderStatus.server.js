@@ -10,7 +10,8 @@ export async function getCotsOrderStatus(von, lastName) {
   const currentStatuses = orderstatus.filter(
     (status) => !!status.statusUpdateDate
   );
-  const { statusCode, statusDesc, statusUpdateDate, arrivalDate } = currentStatuses.pop();
+  const { statusCode, statusDesc, statusUpdateDate, arrivalDate } =
+    currentStatuses.pop();
   const { brandName, modelYear, modelName, image, vin } = vinDetails;
 
   return {
@@ -32,22 +33,22 @@ export async function getCotsOrderStatus(von, lastName) {
     vin,
     von,
     dealer: dealerDetails,
-    ...getVehicleSpecs(image)
+    ...getVehicleSpecs(image),
   };
 }
 
 function getVehicleSpecs(imageUrl) {
-  const [,querystring] = imageUrl.split("?");
+  const [, querystring] = imageUrl.split("?");
   const params = new Proxy(new URLSearchParams(querystring), {
     get: (searchParams, prop) => searchParams.get(prop),
   });
-  const [,specModel] = params.vehicle.split("_");
+  const [, specModel] = params.vehicle.split("_");
   const [trimCode, ...rpoCodes] = params.sa.split(",");
   return {
     trimCode,
-    rpoCodes,
+    rpoCodes: [trimCode, ...rpoCodes],
     specModel,
     paintCode: params.paint,
-    interiorCode: params.fabric
+    interiorCode: params.fabric,
   };
 }

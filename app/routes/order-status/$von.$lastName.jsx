@@ -1,4 +1,4 @@
-import { Box, Typography, Chip } from "@mui/material";
+import { Box, Typography, Chip, Switch, FormControlLabel } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
 import { json } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
@@ -8,6 +8,8 @@ import { DocumentCard } from "~/src/DocumentCard";
 import { MilestoneTimeline } from "~/src/MilestoneTimeline";
 
 import { getOrderStatus } from "~/models/orderStatus.server";
+import rpoMap from "~/src/rpoMap";
+import { VehicleOptionCodes } from "~/src/VehicleOptionCodes";
 
 export const loader = async ({ params }) => {
   const { von, lastName } = params;
@@ -99,18 +101,7 @@ export default function OrderStatus() {
             <MilestoneTimeline timeline={timeline} />
           </Grid>
         </Grid>
-        <Grid container>
-          <Grid sx={{ my: 4 }} xs={12}>
-            <Typography align="center" variant="h4" gutterBottom>
-              Option codes
-            </Typography>
-          </Grid>
-          <Grid container spacing={2} justifyContent="center" xs={12}>
-            {rpoCodes.map((rpo) => (
-              <Chip key={rpo} label={rpo} sx={{ mr: 1, my: 1 }} />
-            ))}
-          </Grid>
-        </Grid>
+        <VehicleOptionCodes rpoCodes={rpoCodes} />
         <Grid container>
           <Grid sx={{ my: 4 }} xs={12}>
             <Typography align="center" variant="h4" gutterBottom>
