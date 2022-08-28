@@ -105,7 +105,7 @@ const Document = withEmotionCache(({ children, title }, emotionCache) => {
 // https://remix.run/api/conventions#route-filenames
 export default function App() {
   return (
-    <Document>
+    <Document title="JeepOnOrder.com">
       <Layout>
         <Outlet />
       </Layout>
@@ -124,10 +124,7 @@ export function ErrorBoundary({ error }) {
           <h1>There was an error</h1>
           <p>{error.message}</p>
           <hr />
-          <p>
-            Hey, developer, you should replace this with what you want your
-            users to see.
-          </p>
+          <p>Sorry for the inconvenience! Please try again later.</p>
         </div>
       </Layout>
     </Document>
