@@ -2,11 +2,27 @@ import axios from "axios";
 import rpoMap from "~/src/rpoMap";
 
 export async function getCotsOrderStatus(von, lastName) {
-  const { data } = await axios.get(
-    `https://www.jeep.com/hostz/cots/order-status/${von}/${lastName}`
-  );
+  let response;
 
-  const { orderstatus, vinDetails, dealerDetails } = data;
+  try {
+    response = await axios.get(
+      `https://www.jeep.com/hostz/cots/order-status/${von}/${lastName}`
+    );
+  } catch (err) {
+    throw new Response(
+      "An error occurred while fetching customer order data.",
+      { status: 500 }
+    );
+  }
+
+  const { orderstatus, vinDetails, dealerDetails } = response.data;
+
+  if (!orderstatus.length) {
+    throw new Response(
+      "There was an issue fetching customer order data. Please check VON and last name.",
+      { status: 400 }
+    );
+  }
 
   const currentStatuses = orderstatus.filter(
     (status) => !!status.statusUpdateDate
