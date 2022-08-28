@@ -1,4 +1,4 @@
-export const a = {
+export default {
   // model codes
   JLJL74: "4-DOOR SPORT",
   JLJP74: "4-DOOR SAHARA",
