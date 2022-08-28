@@ -36,7 +36,7 @@ export function VehicleOptionCodes({ rpoCodes }) {
                 onChange={(event) => setShowDecoded(event.target.checked)}
               />
             }
-            label="Show decoded options only"
+            label="Show order guide options only"
           />
         </Box>
         {rpoCodes.length !== codes.length && (
@@ -46,7 +46,7 @@ export function VehicleOptionCodes({ rpoCodes }) {
             gutterBottom
             color={theme.palette.warning.dark}
           >
-            Only showing decoded option codes.
+            Only showing order guide option codes.
           </Typography>
         )}
       </Grid>
