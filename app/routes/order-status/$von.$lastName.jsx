@@ -1,14 +1,13 @@
-import { Box, Typography, Chip, Switch, FormControlLabel } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
 import { json } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 
 import { BasicStatusCard } from "~/src/BasicStatusCard";
-import { DocumentCard } from "~/src/DocumentCard";
+import { BasicTrackingData } from "~/src/BasicTrackingData";
 import { MilestoneTimeline } from "~/src/MilestoneTimeline";
 
 import { getOrderStatus } from "~/models/orderStatus.server";
-import rpoMap from "~/src/rpoMap";
 import { VehicleOptionCodes } from "~/src/VehicleOptionCodes";
 
 export const loader = async ({ params }) => {
@@ -41,6 +40,19 @@ export default function OrderStatus() {
     dealer,
     rpoCodes,
   } = useLoaderData();
+
+  const basicTrackingData = {
+    von,
+    statusCode,
+    statusDesc,
+    vin,
+    windowStickerFound,
+    windowStickerUrl,
+    buildSheetFound,
+    buildSheetUrl,
+    arrivalDate,
+  };
+
   return (
     <main>
       <Box>
@@ -49,32 +61,7 @@ export default function OrderStatus() {
             <img src={image} alt={vehicle} style={{ width: "90%" }} />
           </Grid>
           <Grid md={6}>
-            <Grid container spacing={2}>
-              <BasicStatusCard title="Order number">{von}</BasicStatusCard>
-              <BasicStatusCard title="Last milestone">
-                {statusCode} - {statusDesc}
-              </BasicStatusCard>
-              <BasicStatusCard title="VIN" md={8}>
-                {vin}
-              </BasicStatusCard>
-              <DocumentCard
-                title="Window sticker"
-                found={windowStickerFound}
-                url={windowStickerUrl}
-                md={5}
-              />
-              <DocumentCard
-                title="Build sheet"
-                found={buildSheetFound}
-                url={buildSheetUrl}
-                md={5}
-              />
-              {arrivalDate && (
-                <BasicStatusCard title="Est. arrival" md={5}>
-                  {arrivalDate}
-                </BasicStatusCard>
-              )}
-            </Grid>
+            <BasicTrackingData data={basicTrackingData} />
           </Grid>
         </Grid>
         <Grid container>
