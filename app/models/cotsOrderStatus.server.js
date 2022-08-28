@@ -1,4 +1,5 @@
 import axios from "axios";
+import rpoMap from "~/src/rpoMap";
 
 export async function getCotsOrderStatus(von, lastName) {
   const { data } = await axios.get(
@@ -43,10 +44,15 @@ function getVehicleSpecs(imageUrl) {
     get: (searchParams, prop) => searchParams.get(prop),
   });
   const [, specModel] = params.vehicle.split("_");
-  const [trimCode, ...rpoCodes] = params.sa.split(",");
+  const [trimCode, ...rest] = params.sa.split(",");
+  const rpoCodes = [trimCode, ...rest].map((code) => [
+    code,
+    rpoMap[code],
+    code + " - " + rpoMap[code],
+  ]);
   return {
     trimCode,
-    rpoCodes: [trimCode, ...rpoCodes],
+    rpoCodes,
     specModel,
     paintCode: params.paint,
     interiorCode: params.fabric,

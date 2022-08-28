@@ -1,7 +1,6 @@
 import { Box, Typography, Chip, Switch, FormControlLabel } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
 import { useState } from "react";
-import rpoMap from "~/src/rpoMap";
 import theme from "~/src/theme";
 
 export function VehicleOptionCodes({ rpoCodes }) {
@@ -9,13 +8,9 @@ export function VehicleOptionCodes({ rpoCodes }) {
 
   let mappedOptions;
   if (shouldDecode) {
-    mappedOptions = rpoCodes
-      .map((code) => [code, rpoMap[code]])
-      .filter(([, decoded]) => !!decoded);
+    mappedOptions = rpoCodes.filter(([, decoded]) => !!decoded);
   }
-  const codes = mappedOptions
-    ? mappedOptions.map(([code, decoded]) => `${code} - ${decoded}`)
-    : rpoCodes;
+  const codes = mappedOptions ? mappedOptions : rpoCodes;
   return (
     <Grid container>
       <Grid sx={{ my: 4 }} xs={12}>
@@ -45,8 +40,13 @@ export function VehicleOptionCodes({ rpoCodes }) {
         )}
       </Grid>
       <Grid container spacing={2} justifyContent="center" xs={12}>
-        {codes.map((rpo) => (
-          <Chip key={rpo} label={rpo} sx={{ mr: 1, my: 1 }} />
+        {codes.map(([code, decoded, display]) => (
+          <Chip
+            key={code}
+            label={shouldDecode ? display : code}
+            sx={{ mr: 1, my: 1 }}
+            color={decoded ? "info" : "default"}
+          />
         ))}
       </Grid>
     </Grid>
