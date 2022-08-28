@@ -48,7 +48,7 @@ function getVehicleSpecs(imageUrl) {
   const rpoCodes = [trimCode, ...rest].map((code) => [
     code,
     rpoMap[code],
-    code + " - " + rpoMap[code],
+    rpoMap[code] ? code + " - " + rpoMap[code] : code,
   ]);
   return {
     trimCode,

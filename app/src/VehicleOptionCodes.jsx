@@ -1,13 +1,30 @@
-import { Box, Typography, Chip, Switch, FormControlLabel } from "@mui/material";
+import {
+  Box,
+  Typography,
+  Chip,
+  Switch,
+  FormControlLabel,
+  Tooltip,
+} from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
 import { useState } from "react";
 import theme from "~/src/theme";
 
+function OptionChip({ decoded, label }) {
+  return (
+    <Chip
+      label={label}
+      sx={{ mr: 1, my: 1 }}
+      color={decoded ? "info" : "default"}
+    />
+  );
+}
+
 export function VehicleOptionCodes({ rpoCodes }) {
-  const [shouldDecode, setShouldDecode] = useState(true);
+  const [showDecoded, setShowDecoded] = useState(true);
 
   let mappedOptions;
-  if (shouldDecode) {
+  if (showDecoded) {
     mappedOptions = rpoCodes.filter(([, decoded]) => !!decoded);
   }
   const codes = mappedOptions ? mappedOptions : rpoCodes;
@@ -22,10 +39,10 @@ export function VehicleOptionCodes({ rpoCodes }) {
             control={
               <Switch
                 defaultChecked
-                onChange={(event) => setShouldDecode(event.target.checked)}
+                onChange={(event) => setShowDecoded(event.target.checked)}
               />
             }
-            label="Decode RPO codes"
+            label="Show decoded options only"
           />
         </Box>
         {rpoCodes.length !== codes.length && (
@@ -35,19 +52,30 @@ export function VehicleOptionCodes({ rpoCodes }) {
             gutterBottom
             color={theme.palette.warning.dark}
           >
-            Some option codes were not decoded.
+            Only showing decoded option codes.
           </Typography>
         )}
       </Grid>
       <Grid container spacing={2} justifyContent="center" xs={12}>
-        {codes.map(([code, decoded, display]) => (
-          <Chip
-            key={code}
-            label={shouldDecode ? display : code}
-            sx={{ mr: 1, my: 1 }}
-            color={decoded ? "info" : "default"}
-          />
-        ))}
+        {codes.map(([code, decoded, display]) =>
+          decoded && !showDecoded ? (
+            <Tooltip key={code} title={display} placement="top">
+              <Box>
+                <OptionChip
+                  key={code}
+                  decoded
+                  label={showDecoded ? display : code}
+                />
+              </Box>
+            </Tooltip>
+          ) : (
+            <OptionChip
+              key={code}
+              decoded={decoded}
+              label={showDecoded ? display : code}
+            />
+          )
+        )}
       </Grid>
     </Grid>
   );
