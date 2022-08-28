@@ -2,6 +2,7 @@ import * as React from "react";
 import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
 import Copyright from "./Copyright";
+import { LogoButton } from "./LogoButton";
 
 export default function Layout({ children }) {
   return (
@@ -12,6 +13,7 @@ export default function Layout({ children }) {
           <Copyright sx={{ mt: 4 }} />
         </Box>
       </Box>
+      <LogoButton />
     </Container>
   );
 }
