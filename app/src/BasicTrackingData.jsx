@@ -2,7 +2,7 @@ import { BasicStatusCard } from "./BasicStatusCard";
 import { DocumentCard } from "./DocumentCard";
 import Grid from "@mui/material/Unstable_Grid2";
 import { DateTime } from "luxon";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Box } from "@mui/material";
 import { Switch } from "./Switch";
 
@@ -21,8 +21,19 @@ export function BasicTrackingData({ data }) {
 
   const { daysUntilArrival, daysSinceLastMilestone } = calculateDays(data);
 
+  const [displayVin, setDisplayVin] = useState(vin);
   const [hideVon, setHideVon] = useState(false);
   const [hideVin, setHideVin] = useState(false);
+
+  useEffect(() => {
+    if (!vin) {
+      setDisplayVin("Not yet");
+    } else if (hideVin) {
+      setDisplayVin(`xxxxxxxxxxx${vin.slice(11)}`);
+    } else {
+      setDisplayVin(vin);
+    }
+  }, [vin, hideVin]);
 
   return (
     <Box>
@@ -47,7 +58,7 @@ export function BasicTrackingData({ data }) {
           {daysSinceLastMilestone} days ago
         </BasicStatusCard>
         <BasicStatusCard title="VIN" md={8}>
-          {vin ? (hideVin ? "Hidden" : vin) : "Not yet"}
+          {displayVin}
         </BasicStatusCard>
         <DocumentCard
           title="Window sticker"
