@@ -7,6 +7,8 @@ export default {
   JLUL74: "4-DOOR SPORT RHD",
   JLXL74: "4-DOOR SAHARA 4XE",
   JLXS74: "4-DOOR RUBICON 4XE",
+  JLJL72: "2-DOOR SPORT",
+  JLJS72: "2-DOOR RUBICON",
 
   // quick order package codes
   "23B": "SPORT 3.6L 6M",
