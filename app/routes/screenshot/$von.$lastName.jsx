@@ -15,7 +15,7 @@ export const loader = async ({ params }) => {
   const page = await browser.newPage();
   const dimension = 1200;
   await page.setViewport({ width: dimension, height: dimension });
-  await page.goto(`${baseUrl}/order-status/${von}/${lastName}`);
+  await page.goto(`${baseUrl}/order-status/${von}/${lastName}?screenshot=true`);
   await page.waitForSelector("#screenshot-hook");
   const screenshotHook = await page.$("#screenshot-hook");
   const data = await screenshotHook.screenshot({ type: "jpeg" });

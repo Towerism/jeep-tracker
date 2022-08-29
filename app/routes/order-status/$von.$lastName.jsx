@@ -1,7 +1,7 @@
 import { Box, Button, Typography } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
 import { json } from "@remix-run/node";
-import { useLoaderData, useParams } from "@remix-run/react";
+import { useLoaderData, useParams, useSearchParams } from "@remix-run/react";
 
 import { BasicStatusCard } from "~/src/BasicStatusCard";
 import { BasicTrackingData } from "~/src/BasicTrackingData";
@@ -58,6 +58,8 @@ export default function OrderStatus() {
 
   const mainRef = useRef();
   const { lastName } = useParams();
+  const [searchParams] = useSearchParams();
+  const isScreenshot = Boolean(searchParams.get("screenshot"));
 
   const onGenerateCanvas = async (von, lastName) => {
     const link = document.createElement("a");
@@ -80,7 +82,10 @@ export default function OrderStatus() {
               <img src={image} alt={vehicle} style={{ width: "90%" }} />
             </Grid>
             <Grid md={6}>
-              <BasicTrackingData data={basicTrackingData} />
+              <BasicTrackingData
+                data={basicTrackingData}
+                hideSensitiveData={isScreenshot}
+              />
             </Grid>
           </Grid>
           <Grid container justifyContent="center">

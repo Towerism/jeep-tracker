@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { Box } from "@mui/material";
 import { Switch } from "./Switch";
 
-export function BasicTrackingData({ data }) {
+export function BasicTrackingData({ data, hideSensitiveData }) {
   const {
     von,
     statusCode,
@@ -22,8 +22,8 @@ export function BasicTrackingData({ data }) {
   const { daysUntilArrival, daysSinceLastMilestone } = calculateDays(data);
 
   const [displayVin, setDisplayVin] = useState(vin);
-  const [hideVon, setHideVon] = useState(false);
-  const [hideVin, setHideVin] = useState(false);
+  const [hideVon, setHideVon] = useState(hideSensitiveData);
+  const [hideVin, setHideVin] = useState(hideSensitiveData);
 
   useEffect(() => {
     if (!vin) {
@@ -40,10 +40,12 @@ export function BasicTrackingData({ data }) {
       <Box align="center">
         <Switch
           label="Hide VON"
+          defaultChecked={hideSensitiveData}
           onChange={(event) => setHideVon(event.target.checked)}
         />
         <Switch
           label="Hide VIN"
+          defaultChecked={hideSensitiveData}
           onChange={(event) => setHideVin(event.target.checked)}
         />
       </Box>
