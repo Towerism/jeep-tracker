@@ -18,9 +18,9 @@
     "@remix-run/react": "^1.6.8",
     "@remix-run/serve": "^1.6.8",
     "axios": "^0.27.2",
-    "html2canvas": "^1.4.1",
     "luxon": "^3.0.2",
     "pdf.js-extract": "^0.2.0",
+    "puppeteer": "^16.2.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },

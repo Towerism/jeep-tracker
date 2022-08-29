@@ -1,4 +1,4 @@
-import { Box, Typography, Chip, Tooltip, useTheme } from "@mui/material";
+import { Box, Typography, Chip, Tooltip } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
 import { useState } from "react";
 import { Switch } from "./Switch";
@@ -21,7 +21,7 @@ export function VehicleOptionCodes({ rpoCodes }) {
         <Typography align="center" variant="h4" gutterBottom>
           Option codes
         </Typography>
-        <Box align="center" data-html2canvas-ignore>
+        <Box align="center">
           <Switch
             label="Show order guide options only"
             defaultChecked

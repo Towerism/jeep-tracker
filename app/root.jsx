@@ -19,7 +19,7 @@ import Layout from "./src/Layout";
 import * as gtag from "~/src/gtags.client";
 
 export const loader = async () => {
-  return json({ gaTrackingId: process.env.GA_TRACKING_ID });
+  return json({ gaTrackingId: process.env.GA_TRACKING_ID || "" });
 };
 
 const useEnhancedEffect =

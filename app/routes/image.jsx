@@ -1,16 +1,4 @@
-const image = (data, init = {}) => {
-  let responseInit = typeof init === "number" ? { status: init } : init;
-
-  let headers = new Headers(responseInit.headers);
-  if (!headers.has("Content-Type")) {
-    headers.set("Content-Type", "image/png");
-  }
-
-  return new Response(data, {
-    ...responseInit,
-    headers,
-  });
-};
+import { image } from "../src/image";
 
 export const loader = async ({ request }) => {
   const url = new URL(request.url);

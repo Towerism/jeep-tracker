@@ -1,7 +1,7 @@
-import { Box, Button, Typography, useTheme } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
 import { json } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
+import { useLoaderData, useParams } from "@remix-run/react";
 
 import { BasicStatusCard } from "~/src/BasicStatusCard";
 import { BasicTrackingData } from "~/src/BasicTrackingData";
@@ -10,7 +10,6 @@ import { MilestoneTimeline } from "~/src/MilestoneTimeline";
 import { getOrderStatus } from "~/models/orderStatus.server";
 import { VehicleOptionCodes } from "~/src/VehicleOptionCodes";
 import { useRef } from "react";
-import html2canvas from "html2canvas";
 
 export const loader = async ({ params }) => {
   const { von, lastName } = params;
@@ -58,39 +57,12 @@ export default function OrderStatus() {
   };
 
   const mainRef = useRef();
-  const theme = useTheme();
+  const { lastName } = useParams();
 
-  function watermarkedDataURL(canvas, text) {
-    const tempCanvas = document.createElement("canvas");
-    const tempCtx = tempCanvas.getContext("2d");
-    tempCanvas.width = canvas.width;
-    tempCanvas.height = canvas.height;
-    tempCtx.drawImage(canvas, 0, 0);
-    const fontPx = 48;
-    tempCtx.font = `${fontPx}px verdana`;
-    tempCtx.globalAlpha = 0.5;
-    tempCtx.fillStyle = "white";
-    const padding = { x: 10, y: 20 };
-    tempCtx.fillText(text, padding.x, padding.y + fontPx / 2);
-    tempCtx.fillStyle = "black";
-    const shadowOffset = 2;
-    tempCtx.fillText(
-      text,
-      padding.x + shadowOffset,
-      padding.y + shadowOffset + fontPx / 2
-    );
-    return tempCanvas.toDataURL("image/png;base64");
-  }
-
-  const onGenerateCanvas = async () => {
-    const canvas = await html2canvas(mainRef.current, {
-      allowTaint: true,
-      backgroundColor: theme.palette.background.default,
-    });
-    const dataUrl = watermarkedDataURL(canvas, "JeepOnOrder.com");
+  const onGenerateCanvas = async (von, lastName) => {
     const link = document.createElement("a");
     link.download = "status.png";
-    link.href = dataUrl;
+    link.href = `/screenshot/${von}/${lastName}`;
     link.click();
   };
 
@@ -98,9 +70,11 @@ export default function OrderStatus() {
     <main>
       <Box>
         <Box sx={{ textAlign: "center" }}>
-          <Button onClick={onGenerateCanvas}>Screenshot</Button>
+          <Button onClick={() => onGenerateCanvas(von, lastName)}>
+            Screenshot
+          </Button>
         </Box>
-        <Grid container ref={mainRef}>
+        <Grid container ref={mainRef} id="screenshot-hook">
           <Grid container>
             <Grid sx={{ textAlign: "center" }} md={6}>
               <img src={image} alt={vehicle} style={{ width: "90%" }} />

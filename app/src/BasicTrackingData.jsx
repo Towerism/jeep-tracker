@@ -37,7 +37,7 @@ export function BasicTrackingData({ data }) {
 
   return (
     <Box>
-      <Box align="center" data-html2canvas-ignore>
+      <Box align="center">
         <Switch
           label="Hide VON"
           onChange={(event) => setHideVon(event.target.checked)}
