@@ -9,7 +9,6 @@ function OptionChip({ decoded, label }) {
 
 export function VehicleOptionCodes({ rpoCodes }) {
   const [showDecoded, setShowDecoded] = useState(true);
-  const theme = useTheme();
 
   let mappedOptions;
   if (showDecoded) {
@@ -29,16 +28,6 @@ export function VehicleOptionCodes({ rpoCodes }) {
             onChange={(event) => setShowDecoded(event.target.checked)}
           />
         </Box>
-        {rpoCodes.length !== codes.length && (
-          <Typography
-            align="center"
-            variant="body2"
-            gutterBottom
-            color={theme.palette.warning.dark}
-          >
-            Only showing order guide option codes.
-          </Typography>
-        )}
       </Grid>
       <Grid container spacing={1} justifyContent="center" xs={12}>
         {codes.map(([code, decoded, display]) => (
@@ -46,14 +35,11 @@ export function VehicleOptionCodes({ rpoCodes }) {
             {decoded && !showDecoded ? (
               <Tooltip title={display} placement="top">
                 <Box>
-                  <OptionChip decoded label={showDecoded ? display : code} />
+                  <OptionChip label={showDecoded ? display : code} />
                 </Box>
               </Tooltip>
             ) : (
-              <OptionChip
-                decoded={decoded}
-                label={showDecoded ? display : code}
-              />
+              <OptionChip label={showDecoded ? display : code} />
             )}
           </Grid>
         ))}

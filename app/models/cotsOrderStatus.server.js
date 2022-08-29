@@ -31,6 +31,7 @@ export async function getCotsOrderStatus(von, lastName) {
     currentStatuses.pop();
   const { brandName, modelYear, modelName, image, vin } = vinDetails;
 
+  const [, imageUrl] = image.split("?");
   return {
     statusCode,
     statusDesc,
@@ -46,7 +47,7 @@ export async function getCotsOrderStatus(von, lastName) {
       completedDate: os.statusUpdateDate,
     })),
     vehicle: `${modelYear} ${modelName}`,
-    image: `${image}&width=826&height=600&bkgnd=transparent&resp=png`,
+    image: `/image?${imageUrl}&width=826&height=600&bkgnd=transparent&resp=png`,
     vin,
     von,
     dealer: dealerDetails,
@@ -62,7 +63,7 @@ function getVehicleSpecs(imageUrl) {
   const [, specModel] = params.vehicle.split("_");
   const [trimCode, ...rest] = params.sa.split(",");
   const rpoCodes = [trimCode, ...rest].map((code) => [
-    code,
+    rpoMap[code] ? code + "*" : code,
     rpoMap[code],
     rpoMap[code] ? code + " - " + rpoMap[code] : code,
   ]);
