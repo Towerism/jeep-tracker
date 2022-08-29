@@ -1,7 +1,7 @@
 import { Box, Button, Typography } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
 import { json } from "@remix-run/node";
-import { useLoaderData, useParams, useSearchParams } from "@remix-run/react";
+import { useLoaderData, useParams } from "@remix-run/react";
 
 import { BasicStatusCard } from "~/src/BasicStatusCard";
 import { BasicTrackingData } from "~/src/BasicTrackingData";
@@ -10,6 +10,8 @@ import { MilestoneTimeline } from "~/src/MilestoneTimeline";
 import { getOrderStatus } from "~/models/orderStatus.server";
 import { VehicleOptionCodes } from "~/src/VehicleOptionCodes";
 import { useRef } from "react";
+import { LogoButton } from "~/src/LogoButton";
+import { useIsScreenshot } from "~/src/useIsScreenshot";
 
 export const loader = async ({ params }) => {
   const { von, lastName } = params;
@@ -58,12 +60,11 @@ export default function OrderStatus() {
 
   const mainRef = useRef();
   const { lastName } = useParams();
-  const [searchParams] = useSearchParams();
-  const isScreenshot = Boolean(searchParams.get("screenshot"));
+  const isScreenshot = useIsScreenshot();
 
   const onGenerateCanvas = async (von, lastName) => {
     const link = document.createElement("a");
-    link.download = "status.png";
+    link.target = "_blank";
     link.href = `/screenshot/${von}/${lastName}`;
     link.click();
   };
@@ -78,8 +79,11 @@ export default function OrderStatus() {
         </Box>
         <Grid container ref={mainRef} id="screenshot-hook">
           <Grid container>
-            <Grid sx={{ textAlign: "center" }} md={6}>
-              <img src={image} alt={vehicle} style={{ width: "90%" }} />
+            <Grid md={6}>
+              {isScreenshot && <LogoButton />}
+              <Box sx={{ textAlign: "center" }}>
+                <img src={image} alt={vehicle} style={{ width: "90%" }} />
+              </Box>
             </Grid>
             <Grid md={6}>
               <BasicTrackingData

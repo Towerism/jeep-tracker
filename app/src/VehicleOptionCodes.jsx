@@ -35,11 +35,14 @@ export function VehicleOptionCodes({ rpoCodes }) {
             {decoded && !showDecoded ? (
               <Tooltip title={display} placement="top">
                 <Box>
-                  <OptionChip label={showDecoded ? display : code} />
+                  <OptionChip decoded label={showDecoded ? display : code} />
                 </Box>
               </Tooltip>
             ) : (
-              <OptionChip label={showDecoded ? display : code} />
+              <OptionChip
+                decoded={decoded}
+                label={showDecoded ? display : code}
+              />
             )}
           </Grid>
         ))}

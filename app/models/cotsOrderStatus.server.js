@@ -63,7 +63,7 @@ function getVehicleSpecs(imageUrl) {
   const [, specModel] = params.vehicle.split("_");
   const [trimCode, ...rest] = params.sa.split(",");
   const rpoCodes = [trimCode, ...rest].map((code) => [
-    rpoMap[code] ? code + "*" : code,
+    code,
     rpoMap[code],
     rpoMap[code] ? code + " - " + rpoMap[code] : code,
   ]);
