@@ -21,7 +21,7 @@ export function VehicleOptionCodes({ rpoCodes }) {
         <Typography align="center" variant="h4" gutterBottom>
           Option codes
         </Typography>
-        <Box align="center">
+        <Box align="center" data-html2canvas-ignore>
           <Switch
             label="Show order guide options only"
             defaultChecked

@@ -37,7 +37,7 @@ export function BasicTrackingData({ data }) {
 
   return (
     <Box>
-      <Box align="center">
+      <Box align="center" data-html2canvas-ignore>
         <Switch
           label="Hide VON"
           onChange={(event) => setHideVon(event.target.checked)}
@@ -47,17 +47,17 @@ export function BasicTrackingData({ data }) {
           onChange={(event) => setHideVin(event.target.checked)}
         />
       </Box>
-      <Grid container spacing={2}>
-        <BasicStatusCard title="Order number">
+      <Grid container spacing={2} justifyContent="center">
+        <BasicStatusCard title="Order number" md={5}>
           {hideVon ? "Hidden" : von}
         </BasicStatusCard>
-        <BasicStatusCard title="Last milestone">
+        <BasicStatusCard title="Last milestone" md={5}>
           {statusCode} - {statusDesc}
         </BasicStatusCard>
-        <BasicStatusCard title="Days since last milestone" md={8}>
+        <BasicStatusCard title="Days since last milestone" md={10}>
           {daysSinceLastMilestone} days ago
         </BasicStatusCard>
-        <BasicStatusCard title="VIN" md={8}>
+        <BasicStatusCard title="VIN" md={10}>
           {displayVin}
         </BasicStatusCard>
         <DocumentCard

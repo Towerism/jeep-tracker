@@ -109,19 +109,21 @@ export default function OrderStatus() {
               <BasicTrackingData data={basicTrackingData} />
             </Grid>
           </Grid>
-          <Grid container>
+          <Grid container justifyContent="center">
             <Grid sx={{ mt: 4 }} md={6}>
               <Typography align="center" variant="h4" gutterBottom>
                 Vehicle specs
               </Typography>
-              <Grid container spacing={2}>
+              <Grid container spacing={2} justifyContent="center">
                 <BasicStatusCard title="Year">{modelYear}</BasicStatusCard>
                 <BasicStatusCard title="Make">{brandName}</BasicStatusCard>
                 <BasicStatusCard title="Model code">
                   {specModel}
                 </BasicStatusCard>
                 <BasicStatusCard title="Trim code">{trimCode}</BasicStatusCard>
-                <BasicStatusCard title="Model">{modelName}</BasicStatusCard>
+                <BasicStatusCard title="Model" md={10}>
+                  {modelName}
+                </BasicStatusCard>
                 <BasicStatusCard title="Interior code">
                   {interiorCode}
                 </BasicStatusCard>
