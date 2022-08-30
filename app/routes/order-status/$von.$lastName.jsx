@@ -77,10 +77,10 @@ export default function OrderStatus() {
             Screenshot
           </Button>
         </Box>
-        <Grid container ref={mainRef} id="screenshot-hook">
+        <Grid container ref={mainRef} id="screenshot-hook" sx={{ padding: 2 }}>
           <Grid container>
             <Grid md={6}>
-              {isScreenshot && <LogoButton />}
+              {isScreenshot && <LogoButton big sx={{ float: true }} />}
               <Box sx={{ textAlign: "center" }}>
                 <img src={image} alt={vehicle} style={{ width: "90%" }} />
               </Box>
