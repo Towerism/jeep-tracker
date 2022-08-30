@@ -1,5 +1,6 @@
 import { Box, Button, Typography } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
+import { ScreenshotMonitor } from "@mui/icons-material";
 import { json } from "@remix-run/node";
 import { useLoaderData, useParams } from "@remix-run/react";
 
@@ -73,7 +74,10 @@ export default function OrderStatus() {
     <main>
       <Box>
         <Box sx={{ textAlign: "center" }}>
-          <Button onClick={() => onGenerateCanvas(von, lastName)}>
+          <Button
+            onClick={() => onGenerateCanvas(von, lastName)}
+            startIcon={<ScreenshotMonitor />}
+          >
             Screenshot
           </Button>
         </Box>
