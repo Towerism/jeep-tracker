@@ -5,6 +5,7 @@ import { DateTime } from "luxon";
 import { useEffect, useState } from "react";
 import { Box } from "@mui/material";
 import { Switch } from "./Switch";
+import { useIsScreenshot } from "../hooks/useIsScreenshot";
 
 export function BasicTrackingData({ data, hideSensitiveData }) {
   const {
@@ -25,6 +26,8 @@ export function BasicTrackingData({ data, hideSensitiveData }) {
   const [hideVon, setHideVon] = useState(hideSensitiveData);
   const [hideVin, setHideVin] = useState(hideSensitiveData);
 
+  const isScreenshot = useIsScreenshot();
+
   useEffect(() => {
     if (!vin) {
       setDisplayVin("Not yet");
@@ -37,18 +40,20 @@ export function BasicTrackingData({ data, hideSensitiveData }) {
 
   return (
     <Box>
-      <Box align="center">
-        <Switch
-          label="Hide VON"
-          defaultChecked={hideSensitiveData}
-          onChange={(event) => setHideVon(event.target.checked)}
-        />
-        <Switch
-          label="Hide VIN"
-          defaultChecked={hideSensitiveData}
-          onChange={(event) => setHideVin(event.target.checked)}
-        />
-      </Box>
+      {!isScreenshot && (
+        <Box align="center">
+          <Switch
+            label="Hide VON"
+            defaultChecked={hideSensitiveData}
+            onChange={(event) => setHideVon(event.target.checked)}
+          />
+          <Switch
+            label="Hide VIN"
+            defaultChecked={hideSensitiveData}
+            onChange={(event) => setHideVin(event.target.checked)}
+          />
+        </Box>
+      )}
       <Grid container spacing={2} justifyContent="center">
         <BasicStatusCard title="Order number" md={5}>
           {hideVon ? "Hidden" : von}

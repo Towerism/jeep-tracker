@@ -1,6 +1,7 @@
 import { Box, Typography, Chip, Tooltip } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
 import { useState } from "react";
+import { useIsScreenshot } from "../hooks/useIsScreenshot";
 import { Switch } from "./Switch";
 
 function OptionChip({ decoded, label }) {
@@ -10,6 +11,8 @@ function OptionChip({ decoded, label }) {
 export function VehicleOptionCodes({ rpoCodes }) {
   const [showDecoded, setShowDecoded] = useState(true);
 
+  const isScreenshot = useIsScreenshot();
+
   let mappedOptions;
   if (showDecoded) {
     mappedOptions = rpoCodes.filter(([, decoded]) => !!decoded);
@@ -18,16 +21,18 @@ export function VehicleOptionCodes({ rpoCodes }) {
   return (
     <Grid container>
       <Grid sx={{ my: 4 }} xs={12}>
-        <Typography align="center" variant="h4" gutterBottom>
+        <Typography align="center" variant="h4">
           Option codes
         </Typography>
-        <Box align="center">
-          <Switch
-            label="Show order guide options only"
-            defaultChecked
-            onChange={(event) => setShowDecoded(event.target.checked)}
-          />
-        </Box>
+        {!isScreenshot && (
+          <Box align="center">
+            <Switch
+              label="Show order guide options only"
+              defaultChecked
+              onChange={(event) => setShowDecoded(event.target.checked)}
+            />
+          </Box>
+        )}
       </Grid>
       <Grid container spacing={1} justifyContent="center" xs={12}>
         {codes.map(([code, decoded, display]) => (
