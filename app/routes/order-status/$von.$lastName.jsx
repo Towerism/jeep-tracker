@@ -67,18 +67,11 @@ export default function OrderStatus() {
   const { lastName } = useParams();
   const isScreenshot = useIsScreenshot();
 
-  const onGenerateCanvas = async (von, lastName) => {
-    const link = document.createElement("a");
-    link.target = "_blank";
-    link.href = `/screenshot/${von}/${lastName}`;
-    link.click();
-  };
-
   return (
     <main>
       <Box>
         <Box sx={{ textAlign: "center" }}>
-          <Button onClick={() => onGenerateCanvas(von, lastName)}>
+          <Button href={`/screenshot/${von}/${lastName}`} target="_blank">
             Take screenshot
           </Button>
         </Box>
