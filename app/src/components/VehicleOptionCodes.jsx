@@ -19,8 +19,8 @@ export function VehicleOptionCodes({ rpoCodes }) {
   }
   const codes = mappedOptions ? mappedOptions : rpoCodes;
   return (
-    <Grid container>
-      <Grid sx={{ my: 4 }} xs={12}>
+    <Grid container sx={isScreenshot ? { mt: -10 } : {}}>
+      <Grid sx={{ my: 2 }} xs={12}>
         <Typography align="center" variant="h4">
           Option codes
         </Typography>
