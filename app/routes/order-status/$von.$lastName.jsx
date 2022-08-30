@@ -74,7 +74,7 @@ export default function OrderStatus() {
       <Box>
         <Box sx={{ textAlign: "center" }}>
           <Button onClick={() => onGenerateCanvas(von, lastName)}>
-            Screenshot
+            Take screenshot
           </Button>
         </Box>
         <Grid container ref={mainRef} id="screenshot-hook" sx={{ padding: 2 }}>
