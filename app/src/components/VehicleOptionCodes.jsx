@@ -8,7 +8,7 @@ function OptionChip({ decoded, label }) {
   return <Chip label={label} color={decoded ? "info" : "default"} />;
 }
 
-export function VehicleOptionCodes({ rpoCodes }) {
+export function VehicleOptionCodes({ rpoCodes = [] }) {
   const [showDecoded, setShowDecoded] = useState(true);
 
   const isScreenshot = useIsScreenshot();

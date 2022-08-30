@@ -6,7 +6,7 @@ import TimelineContent from "@mui/lab/TimelineContent";
 import TimelineDot from "@mui/lab/TimelineDot";
 import TimelineOppositeContent from "@mui/lab/TimelineOppositeContent";
 
-export function MilestoneTimeline({ timeline }) {
+export function MilestoneTimeline({ timeline = [] }) {
   return (
     <Timeline>
       {timeline.map((milestone, index) => (

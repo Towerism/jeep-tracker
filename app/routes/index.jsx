@@ -1,5 +1,5 @@
 import { redirect } from "@remix-run/node";
-import { Form, useTransition } from "@remix-run/react";
+import { Form, useParams, useTransition } from "@remix-run/react";
 import * as React from "react";
 import LoadingButton from "@mui/lab/LoadingButton";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -7,6 +7,7 @@ import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
+import { OrderStatus } from "~/src/components/OrderStatus";
 
 export const action = async ({ request }) => {
   const formData = await request.formData();
@@ -22,7 +23,14 @@ export const meta = () => {
 
 export default function Index() {
   const transition = useTransition();
-  return (
+  const params = useParams();
+
+  return transition.submission ? (
+    <OrderStatus
+      orderStatus={Object.fromEntries(transition.submission.formData)}
+      lastName={params.lastName}
+    />
+  ) : (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <Box
