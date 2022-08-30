@@ -105,7 +105,7 @@ const Document = withEmotionCache(({ children, title }, emotionCache) => {
 // https://remix.run/api/conventions#route-filenames
 export default function App() {
   return (
-    <Document title="JeepOnOrder.com">
+    <Document>
       <Layout>
         <Outlet />
       </Layout>

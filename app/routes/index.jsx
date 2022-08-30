@@ -16,6 +16,10 @@ export const action = async ({ request }) => {
   return redirect(`/order-status/${von}/${lastName}`);
 };
 
+export const meta = () => {
+  return { title: "JeepOnOrder.com" };
+};
+
 export default function Index() {
   const transition = useTransition();
   return (

@@ -19,6 +19,11 @@ export const loader = async ({ params }) => {
   return json(result);
 };
 
+export const meta = ({ params }) => {
+  const { von, lastName } = params;
+  return { title: `Order Status - ${von} - ${lastName}` };
+};
+
 export default function OrderStatus() {
   const {
     image,
