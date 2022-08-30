@@ -1,4 +1,4 @@
-import { image } from "../src/image";
+import { image } from "~/src/response-types/image";
 
 export const loader = async ({ request }) => {
   const url = new URL(request.url);

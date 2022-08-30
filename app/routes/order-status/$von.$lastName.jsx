@@ -3,15 +3,15 @@ import Grid from "@mui/material/Unstable_Grid2";
 import { json } from "@remix-run/node";
 import { useLoaderData, useParams } from "@remix-run/react";
 
-import { BasicStatusCard } from "~/src/BasicStatusCard";
-import { BasicTrackingData } from "~/src/BasicTrackingData";
-import { MilestoneTimeline } from "~/src/MilestoneTimeline";
+import { BasicStatusCard } from "~/src/components/BasicStatusCard";
+import { BasicTrackingData } from "~/src/components/BasicTrackingData";
+import { MilestoneTimeline } from "~/src/components/MilestoneTimeline";
 
 import { getOrderStatus } from "~/models/orderStatus.server";
-import { VehicleOptionCodes } from "~/src/VehicleOptionCodes";
+import { VehicleOptionCodes } from "~/src/components/VehicleOptionCodes";
 import { useRef } from "react";
-import { LogoButton } from "~/src/LogoButton";
-import { useIsScreenshot } from "~/src/useIsScreenshot";
+import { LogoButton } from "~/src/components/LogoButton";
+import { useIsScreenshot } from "~/src/hooks/useIsScreenshot";
 
 export const loader = async ({ params }) => {
   const { von, lastName } = params;

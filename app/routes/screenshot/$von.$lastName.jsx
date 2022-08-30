@@ -1,5 +1,5 @@
 import puppeteer from "puppeteer";
-import { image } from "../../src/image";
+import { image } from "~/src/response-types/image";
 
 export const loader = async ({ params }) => {
   const baseUrl =
