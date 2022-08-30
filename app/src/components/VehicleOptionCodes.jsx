@@ -1,4 +1,4 @@
-import { Box, Typography, Chip, Tooltip } from "@mui/material";
+import { Box, Typography, Chip, Tooltip, Skeleton } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
 import { useState } from "react";
 import { useIsScreenshot } from "../hooks/useIsScreenshot";
@@ -35,6 +35,17 @@ export function VehicleOptionCodes({ rpoCodes = [] }) {
         )}
       </Grid>
       <Grid container spacing={1} justifyContent="center" xs={12}>
+        {!codes.length &&
+          [...Array(20).keys()].map((i) => (
+            <Skeleton
+              key={i}
+              sx={{ mr: 1, mb: 1 }}
+              variant="rounded"
+              animation="wave"
+              width={170}
+              height={13}
+            />
+          ))}
         {codes.map(([code, decoded, display]) => (
           <Grid key={code}>
             {decoded && !showDecoded ? (
