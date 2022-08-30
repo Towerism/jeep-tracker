@@ -62,7 +62,8 @@ export function BasicTrackingData({ data, hideSensitiveData }) {
           {statusCode} - {statusDesc}
         </BasicStatusCard>
         <BasicStatusCard title="Days since last milestone" md={10}>
-          {daysSinceLastMilestone} days ago
+          {daysSinceLastMilestone} day{daysSinceLastMilestone > 1 ? "s" : ""}{" "}
+          ago
         </BasicStatusCard>
         <BasicStatusCard title="VIN" md={10}>
           {displayVin}
@@ -86,7 +87,7 @@ export function BasicTrackingData({ data, hideSensitiveData }) {
         )}
         {arrivalDate && (
           <BasicStatusCard title="Est. days to arrival" md={5}>
-            In {daysUntilArrival} days
+            In {daysUntilArrival} day{daysUntilArrival > 1 ? "s" : ""}
           </BasicStatusCard>
         )}
       </Grid>
