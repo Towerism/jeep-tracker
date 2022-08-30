@@ -9,6 +9,7 @@ export const loader = async ({ params }) => {
 
   const { von, lastName } = params;
   const browser = await puppeteer.launch({
+    userDataDir: ".puppeteercache",
     headless: true,
     args: [
       "--no-sandbox",
