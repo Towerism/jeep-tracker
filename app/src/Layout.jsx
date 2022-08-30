@@ -7,7 +7,7 @@ import { useMediaQuery } from "@mui/material";
 import { useIsScreenshot } from "./hooks/useIsScreenshot";
 
 export default function Layout({ children }) {
-  const mediaQueryMatch = useMediaQuery((theme) => theme.breakpoints.up("lg"));
+  const mediaQueryMatch = useMediaQuery((theme) => theme.breakpoints.up("xl"));
   const isScreenshot = useIsScreenshot();
   return (
     <Container maxWidth="lg">
