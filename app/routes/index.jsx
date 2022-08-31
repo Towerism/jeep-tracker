@@ -69,7 +69,7 @@ export default function Index() {
             required
             fullWidth
             id="von"
-            label="VON"
+            label="Your vehicle order number"
             name="von"
             defaultValue={von}
             autoFocus
@@ -79,7 +79,7 @@ export default function Index() {
             required
             fullWidth
             name="lastName"
-            label="Last name"
+            label="Last name or business name"
             id="lastName"
             defaultValue={lastName}
           />
