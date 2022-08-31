@@ -1,5 +1,10 @@
 import { redirect } from "@remix-run/node";
-import { Form, useParams, useTransition } from "@remix-run/react";
+import {
+  Form,
+  useParams,
+  useTransition,
+  useSearchParams,
+} from "@remix-run/react";
 import * as React from "react";
 import LoadingButton from "@mui/lab/LoadingButton";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -8,6 +13,7 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { OrderStatus } from "~/src/components/OrderStatus";
+import { Alert } from "@mui/material";
 
 export const action = async ({ request }) => {
   const formData = await request.formData();
@@ -24,6 +30,10 @@ export const meta = () => {
 export default function Index() {
   const transition = useTransition();
   const params = useParams();
+  const [searchParams] = useSearchParams();
+  const errorMessage = searchParams.get("error");
+  const von = searchParams.get("von") || "";
+  const lastName = searchParams.get("lastName") || "";
 
   return transition.submission ? (
     <OrderStatus
@@ -44,6 +54,11 @@ export default function Index() {
         <Typography component="h1" variant="h5">
           Get your order status
         </Typography>
+        {errorMessage && (
+          <Alert severity="error" sx={{ mt: 2 }}>
+            {errorMessage}
+          </Alert>
+        )}
         <Box component={Form} method="post" sx={{ mt: 1 }}>
           <TextField
             margin="normal"
@@ -52,6 +67,7 @@ export default function Index() {
             id="von"
             label="VON"
             name="von"
+            value={von}
             autoFocus
           />
           <TextField
@@ -61,6 +77,7 @@ export default function Index() {
             name="lastName"
             label="Last name"
             id="lastName"
+            value={lastName}
           />
           <LoadingButton
             type="submit"

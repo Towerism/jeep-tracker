@@ -1,7 +1,6 @@
 import { Box, Button, Typography, Skeleton } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
 
-import { BasicStatusCard } from "~/src/components/BasicStatusCard";
 import { BasicTrackingData } from "~/src/components/BasicTrackingData";
 import { MilestoneTimeline } from "~/src/components/MilestoneTimeline";
 

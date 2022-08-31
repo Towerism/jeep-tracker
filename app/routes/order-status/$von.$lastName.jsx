@@ -1,4 +1,4 @@
-import { json } from "@remix-run/node";
+import { json, redirect } from "@remix-run/node";
 import { useLoaderData, useParams } from "@remix-run/react";
 
 import { getOrderStatus } from "~/models/orderStatus.server";
@@ -6,8 +6,14 @@ import { OrderStatus } from "~/src/components/OrderStatus";
 
 export const loader = async ({ params }) => {
   const { von, lastName } = params;
-  const result = await getOrderStatus(von, lastName);
-  return json(result);
+  try {
+    const result = await getOrderStatus(von, lastName);
+    return json(result);
+  } catch (err) {
+    const errorMessage = await (err?.text() ??
+      Promise.resolve("Something went wrong retrieving the order status"));
+    return redirect(`/?error=${errorMessage}&von=${von}&lastName=${lastName}`);
+  }
 };
 
 export const meta = ({ params }) => {
