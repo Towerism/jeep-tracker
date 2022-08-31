@@ -5,7 +5,8 @@
     "build": "remix build",
     "deploy": "flyctl deploy --remote-only",
     "dev": "remix dev",
-    "start": "remix-serve build"
+    "start": "remix-serve build",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@emotion/cache": "^11.10.3",
@@ -27,9 +28,16 @@
   "devDependencies": {
     "@remix-run/dev": "^1.6.8",
     "@remix-run/eslint-config": "^1.6.8",
-    "eslint": "^8.20.0"
+    "eslint": "^8.20.0",
+    "husky": "^8.0.1",
+    "lint-staged": "^13.0.3",
+    "prettier": "^2.7.1"
   },
   "engines": {
     "node": ">=14"
+  },
+  "lint-staged": {
+    "*.js,*.jsx": "eslint --max-warnings 0 --cache --fix",
+    "*.js,*.jsx,*.md": "prettier -write" 
   }
 }
