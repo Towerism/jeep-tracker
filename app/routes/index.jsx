@@ -14,6 +14,7 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { OrderStatus } from "~/src/components/OrderStatus";
 import { Alert } from "@mui/material";
+import { deobfuscateSearchParams } from "~/src/obfuscateSearchParams";
 
 export const action = async ({ request }) => {
   const formData = await request.formData();
@@ -31,9 +32,8 @@ export default function Index() {
   const transition = useTransition();
   const params = useParams();
   const [searchParams] = useSearchParams();
-  const errorMessage = searchParams.get("error");
-  const von = searchParams.get("von") || "";
-  const lastName = searchParams.get("lastName") || "";
+  const token = searchParams.get("token");
+  const { error, von, lastName } = deobfuscateSearchParams(token);
 
   return transition.submission ? (
     <OrderStatus
@@ -54,9 +54,9 @@ export default function Index() {
         <Typography component="h1" variant="h5">
           Get your order status
         </Typography>
-        {errorMessage && (
+        {error && (
           <Alert severity="error" sx={{ mt: 2 }}>
-            {errorMessage}
+            {error}
           </Alert>
         )}
         <Box component={Form} method="post" sx={{ mt: 1 }}>

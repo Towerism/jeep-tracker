@@ -3,6 +3,7 @@ import { useLoaderData, useParams } from "@remix-run/react";
 
 import { getOrderStatus } from "~/models/orderStatus.server";
 import { OrderStatus } from "~/src/components/OrderStatus";
+import { obfuscateSearchParams } from "~/src/obfuscateSearchParams";
 
 export const loader = async ({ params }) => {
   const { von, lastName } = params;
@@ -12,7 +13,10 @@ export const loader = async ({ params }) => {
   } catch (err) {
     const errorMessage = await (err?.text() ??
       Promise.resolve("Something went wrong retrieving the order status"));
-    return redirect(`/?error=${errorMessage}&von=${von}&lastName=${lastName}`);
+    const searchParams = obfuscateSearchParams(
+      `error=${errorMessage}&von=${von}&lastName=${lastName}`
+    );
+    return redirect(`/?${searchParams}`);
   }
 };
 
