@@ -15,6 +15,7 @@ import Container from "@mui/material/Container";
 import { OrderStatus } from "~/src/components/OrderStatus";
 import { Alert } from "@mui/material";
 import { deobfuscateSearchParams } from "~/src/obfuscateSearchParams";
+import { LogoButton } from "~/src/components/LogoButton";
 
 export const action = async ({ request }) => {
   const formData = await request.formData();
@@ -88,6 +89,9 @@ export default function Index() {
           >
             Get my order status
           </LoadingButton>
+          <Box sx={{ textAlign: "center", mt: 3 }}>
+            <LogoButton />
+          </Box>
         </Box>
       </Box>
     </Container>
