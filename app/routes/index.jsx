@@ -67,7 +67,7 @@ export default function Index() {
             id="von"
             label="VON"
             name="von"
-            value={von}
+            defaultValue={von}
             autoFocus
           />
           <TextField
@@ -77,7 +77,7 @@ export default function Index() {
             name="lastName"
             label="Last name"
             id="lastName"
-            value={lastName}
+            defaultValue={lastName}
           />
           <LoadingButton
             type="submit"
