@@ -3,24 +3,7 @@ import Typography from "@mui/material/Typography";
 import Link from "@mui/material/Link";
 import Box from "@mui/material/Box";
 
-const useIsSsr = () => {
-  const [isSsr, setIsSsr] = React.useState(true);
-
-  React.useEffect(() => {
-    setIsSsr(false);
-  }, []);
-
-  return isSsr;
-};
-
-const useHostname = () => {
-  const isSsr = useIsSsr();
-
-  return isSsr ? "" : window.location.hostname;
-};
-
 export default function Copyright() {
-  const hostname = useHostname();
   return (
     <Box>
       <Typography variant="body2" color="text.secondary" align="center">
@@ -45,8 +28,8 @@ export default function Copyright() {
       </Typography>
       <Box sx={{ textAlign: "center", mt: 2 }}>
         <Typography variant="caption" color="InactiveCaptionText">
-          {hostname} is not affiliated with Jeep® or Chrysler Group LLC. Jeep is
-          a registered trademark of Chrysler Group LLC.
+          JeepOnOrder.com is not affiliated with Jeep® or Chrysler Group LLC.
+          Jeep is a registered trademark of Chrysler Group LLC.
         </Typography>
       </Box>
     </Box>
