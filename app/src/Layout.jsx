@@ -13,11 +13,9 @@ export default function Layout({ children }) {
     <Container maxWidth="lg">
       <Box sx={{ my: 4 }}>
         {children}
-        {!mediaQueryMatch && (
-          <Box sx={{ textAlign: "center", mt: 4 }}>
-            <LogoButton />
-          </Box>
-        )}
+        <Box sx={{ textAlign: "center", mt: 4 }}>
+          <LogoButton />
+        </Box>
         <Box sx={{ mt: 4 }}>
           <Copyright sx={{ mt: 4 }} />
         </Box>
