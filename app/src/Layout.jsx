@@ -10,7 +10,7 @@ export default function Layout({ children }) {
   const mediaQueryMatch = useMediaQuery((theme) => theme.breakpoints.up("xl"));
   const isScreenshot = useIsScreenshot();
   return (
-    <Container maxWidth="lg">
+    <Container maxWidth="xl">
       <Box sx={{ my: 4 }}>
         {children}
         <Box sx={{ textAlign: "center", mt: 4 }}>

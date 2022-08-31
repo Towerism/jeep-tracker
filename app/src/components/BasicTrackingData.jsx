@@ -55,38 +55,40 @@ export function BasicTrackingData({ data, hideSensitiveData }) {
         </Box>
       )}
       <Grid container spacing={2} justifyContent="center">
-        <BasicStatusCard title="Order number" md={5}>
+        <BasicStatusCard title="Order number" xs={12} md={5}>
           {hideVon ? "Hidden" : von}
         </BasicStatusCard>
-        <BasicStatusCard title="Last milestone" md={5}>
+        <BasicStatusCard title="Last milestone" xs={12} md={5}>
           {statusCode} - {statusDesc}
         </BasicStatusCard>
-        <BasicStatusCard title="Days since last milestone" md={10}>
+        <BasicStatusCard title="Days since last milestone" xs={12} md={10}>
           {daysSinceLastMilestone} day{daysSinceLastMilestone > 1 ? "s" : ""}{" "}
           ago
         </BasicStatusCard>
-        <BasicStatusCard title="VIN" md={10}>
+        <BasicStatusCard title="VIN" xs={12} md={10}>
           {displayVin}
         </BasicStatusCard>
         <DocumentCard
           title="Window sticker"
           found={windowStickerFound}
           url={windowStickerUrl}
+          xs={12}
           md={5}
         />
         <DocumentCard
           title="Build sheet"
           found={buildSheetFound}
           url={buildSheetUrl}
+          xs={12}
           md={5}
         />
         {arrivalDate && (
-          <BasicStatusCard title="Est. arrival" md={5}>
+          <BasicStatusCard title="Est. arrival" xs={12} md={5}>
             {arrivalDate}
           </BasicStatusCard>
         )}
         {arrivalDate && (
-          <BasicStatusCard title="Est. days to arrival" md={5}>
+          <BasicStatusCard title="Est. days to arrival" xs={12} md={5}>
             In {daysUntilArrival} day{daysUntilArrival > 1 ? "s" : ""}
           </BasicStatusCard>
         )}

@@ -52,7 +52,7 @@ export const loader = async ({ params }) => {
     timeout: 10000,
   });
   const page = await browser.newPage();
-  const dimension = 1200;
+  const dimension = 1300;
   await page.setViewport({ width: dimension, height: dimension });
   await page.goto(`${baseUrl}/order-status/${von}/${lastName}?screenshot=true`);
   await page.waitForSelector("#screenshot-hook");
