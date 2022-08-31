@@ -91,7 +91,7 @@ export function OrderStatus({ orderStatus, lastName }) {
               </Box>
             </Grid>
             <Grid md={6}>
-              {basicTrackingData.vin ? (
+              {basicTrackingData.statusCode ? (
                 <BasicTrackingData
                   data={basicTrackingData}
                   hideSensitiveData={isScreenshot}
