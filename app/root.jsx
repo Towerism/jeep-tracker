@@ -115,14 +115,12 @@ export default function App() {
 
 // https://remix.run/docs/en/v1/api/conventions#errorboundary
 export function ErrorBoundary({ error }) {
-  console.error(error);
-
   return (
     <Document title="Error!">
       <Layout>
         <div>
-          <h1>There was an error</h1>
-          <p>{error.message}</p>
+          <h1>There was an error.</h1>
+          <p>We're not sure what happened...</p>
           <hr />
           <p>Sorry for the inconvenience! Please try again later.</p>
         </div>

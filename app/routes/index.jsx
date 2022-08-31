@@ -34,7 +34,11 @@ export default function Index() {
   const params = useParams();
   const [searchParams] = useSearchParams();
   const token = searchParams.get("token");
-  const { error, von, lastName } = deobfuscateSearchParams(token);
+  const {
+    error = "",
+    von = "",
+    lastName = "",
+  } = token ? deobfuscateSearchParams(token) : {};
 
   return transition.submission ? (
     <OrderStatus
