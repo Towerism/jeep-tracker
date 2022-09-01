@@ -77,6 +77,9 @@ export default function Index() {
             id="von"
             label="Your vehicle order number"
             name="von"
+            InputLabelProps={{
+              shrink: true,
+            }}
             defaultValue={von}
             autoFocus
           />
@@ -85,6 +88,9 @@ export default function Index() {
             required
             fullWidth
             name="lastName"
+            InputLabelProps={{
+              shrink: true,
+            }}
             label="Last name or business name"
             id="lastName"
             defaultValue={lastName}
