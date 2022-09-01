@@ -1,9 +1,9 @@
-import { redirect } from "@remix-run/node";
+import { json, redirect } from "@remix-run/node";
 import {
   Form,
   useParams,
   useTransition,
-  useSearchParams,
+  useLoaderData,
 } from "@remix-run/react";
 import * as React from "react";
 import LoadingButton from "@mui/lab/LoadingButton";
@@ -24,6 +24,18 @@ export const action = async ({ request }) => {
   return redirect(`/order-status/${von}/${lastName}`);
 };
 
+export const loader = ({ request }) => {
+  const url = new URL(request.url);
+  const token = url.searchParams.get("token");
+  const {
+    error = "",
+    von = "",
+    lastName = "",
+  } = token ? deobfuscateSearchParams(token) : {};
+
+  return json({ error, von, lastName });
+};
+
 export const meta = () => {
   return { title: "JeepOnOrder.com" };
 };
@@ -31,13 +43,7 @@ export const meta = () => {
 export default function Index() {
   const transition = useTransition();
   const params = useParams();
-  const [searchParams] = useSearchParams();
-  const token = searchParams.get("token");
-  const {
-    error = "",
-    von = "",
-    lastName = "",
-  } = token ? deobfuscateSearchParams(token) : {};
+  const { error, von, lastName } = useLoaderData();
 
   return transition.submission ? (
     <OrderStatus

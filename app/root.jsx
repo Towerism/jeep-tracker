@@ -27,7 +27,7 @@ import { useIsScreenshot } from "./src/hooks/useIsScreenshot";
 export const loader = async () => {
   return json({
     gaTrackingId: process.env.GA_TRACKING_ID,
-    gasClientResource: process.env.GAS_CLIENT_RESOURCE || "",
+    gasClientResource: process.env.GAS_CLIENT_RESOURCE,
   });
 };
 
