@@ -24,7 +24,10 @@ import Layout from "./src/Layout";
 import * as gtag from "~/src/gtags.client";
 
 export const loader = async () => {
-  return json({ gaTrackingId: process.env.GA_TRACKING_ID || "" });
+  return json({
+    gaTrackingId: process.env.GA_TRACKING_ID,
+    gasClientResource: process.env.GAS_CLIENT_RESOURCE || "",
+  });
 };
 
 const useEnhancedEffect =
@@ -35,9 +38,11 @@ const Document = withEmotionCache(
     const clientStyleData = React.useContext(ClientStyleContext);
     const location = useLocation();
     let gaTrackingId = "";
+    let gasClientResource = "";
     if (!isError) {
       const data = useLoaderData();
       gaTrackingId = data?.gaTrackingId ?? "";
+      gasClientResource = data?.gasClientResource ?? "";
     }
 
     // Only executed on client
@@ -78,6 +83,17 @@ const Document = withEmotionCache(
             name="emotion-insertion-point"
             content="emotion-insertion-point"
           />
+
+          {process.env.NODE_ENV === "development" ||
+          !gasClientResource ? null : (
+            <>
+              <script
+                async
+                src={gasClientResource}
+                crossorigin="anonymous"
+              ></script>
+            </>
+          )}
         </head>
         <body>
           {process.env.NODE_ENV === "development" || !gaTrackingId ? null : (
