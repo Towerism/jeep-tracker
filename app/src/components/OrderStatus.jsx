@@ -66,29 +66,34 @@ export function OrderStatus({ orderStatus, lastName }) {
   return (
     <main>
       <Box>
-        <Box sx={{ textAlign: "center" }}>
-          {lastName && (
-            <Button href={`/screenshot/${von}/${lastName}`} target="_blank">
-              Take screenshot
-            </Button>
-          )}
-        </Box>
+        {statusCode && (
+          <Box sx={{ textAlign: "center" }}>
+            {lastName && (
+              <Button href={`/screenshot/${von}/${lastName}`} target="_blank">
+                Take screenshot
+              </Button>
+            )}
+          </Box>
+        )}
         <Grid container ref={mainRef} id="screenshot-hook" sx={{ padding: 2 }}>
           <Grid container sx={{ width: "100%" }}>
             <Grid md={6}>
               {isScreenshot && <LogoButton big sx={{ float: true }} />}
-              <Box sx={{ textAlign: "center" }}>
-                {image ? (
-                  <img src={image} alt={vehicle} style={{ width: "90%" }} />
-                ) : (
+              {image ? (
+                <img src={image} alt={vehicle} style={{ width: "90%" }} />
+              ) : (
+                <>
                   <Skeleton
                     variant="rounded"
                     animation="wave"
                     width="90%"
                     height={200}
                   />
-                )}
-              </Box>
+                  <Box sx={{ width: 700, display: "hidden", mb: 2 }}>
+                    &nbsp;
+                  </Box>
+                </>
+              )}
             </Grid>
             <Grid md={6}>
               {basicTrackingData.statusCode ? (
