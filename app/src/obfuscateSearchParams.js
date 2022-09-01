@@ -4,8 +4,12 @@ export function obfuscateSearchParams(searchParams) {
 }
 
 export function deobfuscateSearchParams(obfuscated) {
-  const searchParams = atob(obfuscated);
-  return new Proxy(new URLSearchParams(searchParams), {
-    get: (searchParams, prop) => searchParams.get(prop) || "",
-  });
+  try {
+    const searchParams = atob(obfuscated);
+    return new Proxy(new URLSearchParams(searchParams), {
+      get: (searchParams, prop) => searchParams.get(prop) || "",
+    });
+  } catch (_) {
+    return {};
+  }
 }
