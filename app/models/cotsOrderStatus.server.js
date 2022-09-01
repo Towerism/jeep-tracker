@@ -40,12 +40,7 @@ export async function getCotsOrderStatus(von, lastName) {
     modelYear,
     modelName,
     arrivalDate,
-    timeline: orderstatus.map((os) => ({
-      code: os.statusCode,
-      name: os.statusDesc,
-      completed: !!os.statusUpdateDate,
-      completedDate: os.statusUpdateDate,
-    })),
+    timeline: getTimeline(orderstatus),
     vehicle: `${modelYear} ${modelName}`,
     image: `/image?${imageUrl}&width=826&height=600&bkgnd=transparent&resp=png`,
     vin,
@@ -74,4 +69,24 @@ function getVehicleSpecs(imageUrl) {
     paintCode: params.paint,
     interiorCode: params.fabric,
   };
+}
+
+function getTimeline(orderstatus) {
+  const result = orderstatus.map((os) => ({
+    code: os.statusCode,
+    name: os.statusDesc,
+    completed: !!os.statusUpdateDate,
+    completedDate: os.statusUpdateDate,
+  }));
+
+  let autoComplete = false;
+  for (let i = orderstatus.length - 1; i >= 0; i--) {
+    if (autoComplete) {
+      result[i].completed = true;
+    } else {
+      autoComplete ||= result[i].completed;
+    }
+  }
+
+  return result;
 }
