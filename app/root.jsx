@@ -22,6 +22,7 @@ import theme from "./src/theme";
 import ClientStyleContext from "./src/ClientStyleContext";
 import Layout from "./src/Layout";
 import * as gtag from "~/src/gtags.client";
+import { useIsScreenshot } from "./src/hooks/useIsScreenshot";
 
 export const loader = async () => {
   return json({
@@ -44,6 +45,7 @@ const Document = withEmotionCache(
       gaTrackingId = data?.gaTrackingId ?? "";
       gasClientResource = data?.gasClientResource ?? "";
     }
+    const isScreenshot = useIsScreenshot();
 
     // Only executed on client
     useEnhancedEffect(() => {
@@ -85,7 +87,8 @@ const Document = withEmotionCache(
           />
 
           {process.env.NODE_ENV === "development" ||
-          !gasClientResource ? null : (
+          !gasClientResource ||
+          isScreenshot ? null : (
             <>
               <script
                 async
