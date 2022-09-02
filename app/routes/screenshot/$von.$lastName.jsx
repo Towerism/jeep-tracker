@@ -42,9 +42,13 @@ export default function Screenshot() {
   };
 
   const copyScreenshot = async () => {
-    await copyImageToClipboard(dataUrl);
-    setCopyLabel("Copied!");
-    setTimeout(() => setCopyLabel("Copy to clipboard"), 5000);
+    try {
+      await copyImageToClipboard(dataUrl);
+      setCopyLabel("Copied!");
+      setTimeout(() => setCopyLabel("Copy to clipboard"), 5000);
+    } catch (err) {
+      setCopyLabel("Failed :(");
+    }
   };
 
   return (
