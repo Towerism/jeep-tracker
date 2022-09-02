@@ -34,7 +34,7 @@ export default function Screenshot() {
 
   const downloadScreenshot = () => {
     var link = document.createElement("a");
-    link.download = `screenshot_${von}_${lastName}}.jpg`;
+    link.download = `screenshot_${von}_${lastName}.jpg`;
     link.href = dataUrl;
     document.body.appendChild(link);
     link.click();
