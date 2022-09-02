@@ -2,10 +2,9 @@ import { useLoaderData, useParams } from "@remix-run/react";
 import { json } from "@remix-run/node";
 import { getScreenshot } from "~/models/screenshot.server";
 import { Box } from "@mui/system";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import {
-  getBlobFromImageElement,
-  copyBlobToClipboard,
+  copyImageToClipboard,
   canCopyImagesToClipboard,
 } from "copy-image-clipboard";
 import {
@@ -26,7 +25,6 @@ export const loader = async ({ params }) => {
 export default function Screenshot() {
   const { dataUrl } = useLoaderData();
   const { von, lastName } = useParams();
-  const imageRef = useRef();
   const [copyLabel, setCopyLabel] = useState("Copy to clipboard");
   const [canCopyImage, setCanCopyImage] = useState(false);
 
@@ -44,8 +42,7 @@ export default function Screenshot() {
   };
 
   const copyScreenshot = async () => {
-    const blob = await getBlobFromImageElement(imageRef.current);
-    await copyBlobToClipboard(blob);
+    await copyImageToClipboard(dataUrl);
     setCopyLabel("Copied!");
     setTimeout(() => setCopyLabel("Copy to clipboard"), 5000);
   };
@@ -73,12 +70,7 @@ export default function Screenshot() {
             )}
           </Stack>
           <Box>
-            <img
-              ref={imageRef}
-              src={dataUrl}
-              alt="screenshot"
-              style={{ maxWidth: "100%" }}
-            />
+            <img src={dataUrl} alt="screenshot" style={{ maxWidth: "100%" }} />
           </Box>
         </CardContent>
       </Card>
