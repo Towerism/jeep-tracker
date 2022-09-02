@@ -2,7 +2,19 @@ import { useLoaderData, useParams } from "@remix-run/react";
 import { json } from "@remix-run/node";
 import { getScreenshot } from "~/models/screenshot.server";
 import { Box } from "@mui/system";
-import { Button, Card, CardContent, Typography } from "@mui/material";
+import { useRef, useState } from "react";
+import {
+  getBlobFromImageElement,
+  copyBlobToClipboard,
+} from "copy-image-clipboard";
+import {
+  Button,
+  Card,
+  CardContent,
+  Divider,
+  Stack,
+  Typography,
+} from "@mui/material";
 
 export const loader = async ({ params }) => {
   const { von, lastName } = params;
@@ -13,6 +25,8 @@ export const loader = async ({ params }) => {
 export default function Screenshot() {
   const { dataUrl } = useLoaderData();
   const { von, lastName } = useParams();
+  const imageRef = useRef();
+  const [copyLabel, setCopyLabel] = useState("Copy to clipboard");
 
   const downloadScreenshot = () => {
     var link = document.createElement("a");
@@ -21,6 +35,13 @@ export default function Screenshot() {
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
+  };
+
+  const copyScreenshot = async () => {
+    const blob = await getBlobFromImageElement(imageRef.current);
+    await copyBlobToClipboard(blob);
+    setCopyLabel("Copied!");
+    setTimeout(() => setCopyLabel("Copy to clipboard"), 5000);
   };
 
   return (
@@ -33,11 +54,18 @@ export default function Screenshot() {
           <Typography variant="body1" sx={{ mb: 2 }}>
             Below is a screenshot of your order status.
           </Typography>
-          <Button onClick={downloadScreenshot} sx={{ mb: 2 }}>
-            Download
-          </Button>
+          <Stack
+            direction="row"
+            justifyContent="center"
+            spacing={1}
+            divider={<Divider orientation="vertical" flexItem />}
+            sx={{ mb: 2 }}
+          >
+            <Button onClick={downloadScreenshot}>Download</Button>
+            <Button onClick={copyScreenshot}>{copyLabel}</Button>
+          </Stack>
           <Box>
-            <img src={dataUrl} alt="screenshot" />
+            <img ref={imageRef} src={dataUrl} alt="screenshot" />
           </Box>
         </CardContent>
       </Card>

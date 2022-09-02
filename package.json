@@ -19,6 +19,7 @@
     "@remix-run/react": "^1.6.8",
     "@remix-run/serve": "^1.6.8",
     "axios": "^0.27.2",
+    "copy-image-clipboard": "^2.1.2",
     "luxon": "^3.0.2",
     "pdf.js-extract": "^0.2.0",
     "puppeteer": "^16.2.0",
@@ -38,6 +39,6 @@
   },
   "lint-staged": {
     "*.js,*.jsx": "eslint --max-warnings 0 --cache --fix",
-    "*.js,*.jsx,*.md": "prettier -write" 
+    "*.js,*.jsx,*.md": "prettier -write"
   }
 }
