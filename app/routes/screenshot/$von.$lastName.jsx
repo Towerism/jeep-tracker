@@ -22,6 +22,11 @@ export const loader = async ({ params }) => {
   return json({ dataUrl });
 };
 
+export const meta = ({ params }) => {
+  const { von, lastName } = params;
+  return { title: `Screenshot - ${von} - ${lastName}` };
+};
+
 export default function Screenshot() {
   const { dataUrl } = useLoaderData();
   const { von, lastName } = useParams();
