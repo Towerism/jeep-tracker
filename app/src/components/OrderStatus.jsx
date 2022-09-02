@@ -1,3 +1,4 @@
+import { Link } from "@remix-run/react";
 import { Box, Button, Typography, Skeleton } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
 
@@ -62,16 +63,17 @@ export function OrderStatus({ orderStatus, lastName }) {
 
   const mainRef = useRef();
   const isScreenshot = useIsScreenshot();
+  const screenshotLink = `/screenshot/${von}/${lastName}`;
 
   return (
     <main>
       <Box>
         {statusCode && (
           <Box sx={{ textAlign: "center" }}>
-            {lastName && (
-              <Button href={`/screenshot/${von}/${lastName}`} target="_blank">
+            {lastName && !isScreenshot && (
+              <Link prefetch="render" to={screenshotLink}>
                 Take screenshot
-              </Button>
+              </Link>
             )}
           </Box>
         )}
