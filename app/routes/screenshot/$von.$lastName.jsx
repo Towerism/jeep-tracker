@@ -48,8 +48,8 @@ export default function Screenshot() {
     <Box sx={{ textAlign: "center" }}>
       <Card>
         <CardContent>
-          <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-            Screenshot
+          <Typography variant="h5" color="text.secondary" sx={{ mb: 3 }}>
+            {von} - {lastName}
           </Typography>
           <Typography variant="body1" sx={{ mb: 2 }}>
             Below is a screenshot of your order status.
@@ -59,7 +59,7 @@ export default function Screenshot() {
             justifyContent="center"
             spacing={1}
             divider={<Divider orientation="vertical" flexItem />}
-            sx={{ mb: 2 }}
+            sx={{ mb: 4 }}
           >
             <Button onClick={downloadScreenshot}>Download</Button>
             <Button onClick={copyScreenshot}>{copyLabel}</Button>
