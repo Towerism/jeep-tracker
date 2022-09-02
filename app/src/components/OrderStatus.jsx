@@ -71,8 +71,12 @@ export function OrderStatus({ orderStatus, lastName }) {
         {statusCode && (
           <Box sx={{ textAlign: "center" }}>
             {lastName && !isScreenshot && (
-              <Link prefetch="render" to={screenshotLink}>
-                Take screenshot
+              <Link
+                prefetch="render"
+                to={screenshotLink}
+                style={{ textDecoration: "none" }}
+              >
+                <Button>Take a screenshot</Button>
               </Link>
             )}
           </Box>
