@@ -1,4 +1,4 @@
-import { Link } from "@remix-run/react";
+import { Link, useTransition } from "@remix-run/react";
 import { Box, Button, Typography, Skeleton } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
 
@@ -11,6 +11,7 @@ import { LogoButton } from "~/src/components/LogoButton";
 import { useIsScreenshot } from "~/src/hooks/useIsScreenshot";
 import { VehicleSpecs } from "./VehicleSpecs";
 import { Dealership } from "./Dealership";
+import LoadingButton from "@mui/lab/LoadingButton";
 
 export function OrderStatus({ orderStatus, lastName }) {
   const {
@@ -64,6 +65,7 @@ export function OrderStatus({ orderStatus, lastName }) {
   const mainRef = useRef();
   const isScreenshot = useIsScreenshot();
   const screenshotLink = `/screenshot/${von}/${lastName}`;
+  const transition = useTransition();
 
   return (
     <main>
@@ -76,7 +78,12 @@ export function OrderStatus({ orderStatus, lastName }) {
                 to={screenshotLink}
                 style={{ textDecoration: "none" }}
               >
-                <Button>Take a screenshot</Button>
+                <LoadingButton
+                  loading={transition.state !== "idle"}
+                  loadingIndicator="Loading..."
+                >
+                  Take a screenshot
+                </LoadingButton>
               </Link>
             )}
           </Box>
