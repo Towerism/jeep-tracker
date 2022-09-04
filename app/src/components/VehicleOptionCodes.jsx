@@ -6,7 +6,6 @@ import {
   ButtonGroup,
   Button,
 } from "@mui/material";
-import { blue } from "@mui/material/colors";
 import Grid from "@mui/material/Unstable_Grid2";
 import { useState } from "react";
 import { useIsScreenshot } from "~/src/hooks/useIsScreenshot";
@@ -19,7 +18,12 @@ function OptionChip({ decoded, showDecoded, code, isSubOption }) {
     <ButtonGroup color={color} size="small" variant="contained">
       <Button>{code}</Button>
       {showDecoded && (
-        <Button color={isSubOption ? "neutral3" : "neutral4"}>{decoded}</Button>
+        <Button
+          color={isSubOption ? "neutral3" : "neutral4"}
+          sx={{ textTransform: "none" }}
+        >
+          {decoded}
+        </Button>
       )}
     </ButtonGroup>
   );
