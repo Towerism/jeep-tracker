@@ -59,7 +59,6 @@ function getVehicleSpecs(imageUrl) {
   const [trimCode, ...rest] = params.sa.split(",");
   const rpoCodes = [trimCode, ...rest].map((code) => {
     const decoded = rpoMap[code] || rpoMap[code.slice(0, -1)];
-    console.log("checking ", code.slice(-1));
     return [code, decoded, decoded ? code + " - " + decoded : code];
   });
   return {
