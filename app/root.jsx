@@ -130,7 +130,6 @@ export default function App() {
 
 // https://remix.run/docs/en/v1/api/conventions#errorboundary
 export function ErrorBoundary({ error }) {
-  console.log(error);
   return (
     <Document title="Error!" isError={true}>
       <Layout>

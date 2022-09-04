@@ -9,10 +9,8 @@ const YEARS = "2022|2023";
 
 export async function getOptionCodes() {
   if (optionCodes) {
-    console.log("!!!!---- using cached version");
     return optionCodes;
   }
-  console.log("!!!!---- cache miss");
   optionCodes = await aggregateOptions();
   return optionCodes;
 }
