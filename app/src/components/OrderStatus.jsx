@@ -73,11 +73,7 @@ export function OrderStatus({ orderStatus, lastName }) {
         {statusCode && (
           <Box sx={{ textAlign: "center" }}>
             {lastName && !isScreenshot && (
-              <Link
-                prefetch="render"
-                to={screenshotLink}
-                style={{ textDecoration: "none" }}
-              >
+              <Link to={screenshotLink} style={{ textDecoration: "none" }}>
                 <LoadingButton
                   loading={transition.state !== "idle"}
                   loadingIndicator="Loading..."
