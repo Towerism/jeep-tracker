@@ -66,7 +66,7 @@ function getVehicleSpecs(imageUrl) {
       return {
         code: transformedCode,
         decoded,
-        display: decoded ? transformedCode + " - " + decoded : transformedCode,
+        display: decoded ? transformedCode + " -- " + decoded : transformedCode,
         isSubOption: isCodeSubOption(code),
       };
     }),
