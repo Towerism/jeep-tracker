@@ -1,15 +1,27 @@
-import { Box, Typography, Chip, Tooltip, Skeleton } from "@mui/material";
+import {
+  Box,
+  Typography,
+  Tooltip,
+  Skeleton,
+  ButtonGroup,
+  Button,
+} from "@mui/material";
+import { blue } from "@mui/material/colors";
 import Grid from "@mui/material/Unstable_Grid2";
 import { useState } from "react";
 import { useIsScreenshot } from "~/src/hooks/useIsScreenshot";
 import { Switch } from "./Switch";
 
-function OptionChip({ decoded, label, isSubOption }) {
+function OptionChip({ decoded, showDecoded, code, isSubOption }) {
+  const color =
+    isSubOption && decoded ? "info" : decoded ? "primary" : "inherit";
   return (
-    <Chip
-      label={label}
-      color={isSubOption && decoded ? "info" : decoded ? "primary" : "default"}
-    />
+    <ButtonGroup color={color} size="small" variant="contained">
+      <Button>{code}</Button>
+      {showDecoded && (
+        <Button color={isSubOption ? "neutral" : "neutral2"}>{decoded}</Button>
+      )}
+    </ButtonGroup>
   );
 }
 
@@ -18,11 +30,10 @@ export function VehicleOptionCodes({ rpoCodes = [] }) {
 
   const isScreenshot = useIsScreenshot();
 
-  let mappedOptions;
+  let codes = rpoCodes;
   if (showDecoded) {
-    mappedOptions = rpoCodes.filter(({ decoded }) => !!decoded);
+    codes = rpoCodes.filter(({ decoded }) => !!decoded);
   }
-  const codes = mappedOptions ? mappedOptions : rpoCodes;
   return (
     <Grid container sx={isScreenshot ? { mt: -10 } : {}}>
       <Grid sx={{ my: 2 }} xs={12}>
@@ -39,16 +50,16 @@ export function VehicleOptionCodes({ rpoCodes = [] }) {
           </Box>
         )}
       </Grid>
-      <Grid container spacing={1} justifyContent="center" xs={12}>
+      <Grid container spacing={1.5} justifyContent="center" xs={12}>
         {!codes.length &&
           [...Array(20).keys()].map((i) => (
             <Skeleton
               key={i}
-              sx={{ mr: 1, mb: 1 }}
+              sx={{ mr: 1.5, mb: 1.5 }}
               variant="rounded"
               animation="wave"
               width={170}
-              height={13}
+              height={26}
             />
           ))}
         {codes.map(({ code, decoded, display, isSubOption }) => (
@@ -58,7 +69,8 @@ export function VehicleOptionCodes({ rpoCodes = [] }) {
                 <Box>
                   <OptionChip
                     decoded
-                    label={showDecoded ? display : code}
+                    code={code}
+                    showDeocded={showDecoded}
                     isSubOption={isSubOption}
                   />
                 </Box>
@@ -66,7 +78,8 @@ export function VehicleOptionCodes({ rpoCodes = [] }) {
             ) : (
               <OptionChip
                 decoded={decoded}
-                label={showDecoded ? display : code}
+                code={code}
+                showDecoded={showDecoded}
                 isSubOption={isSubOption}
               />
             )}
