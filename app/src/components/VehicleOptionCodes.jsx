@@ -4,8 +4,13 @@ import { useState } from "react";
 import { useIsScreenshot } from "../hooks/useIsScreenshot";
 import { Switch } from "./Switch";
 
-function OptionChip({ decoded, label }) {
-  return <Chip label={label} color={decoded ? "info" : "default"} />;
+function OptionChip({ decoded, label, isSubOption }) {
+  return (
+    <Chip
+      label={label}
+      color={isSubOption && decoded ? "info" : decoded ? "warning" : "default"}
+    />
+  );
 }
 
 export function VehicleOptionCodes({ rpoCodes = [] }) {
@@ -51,13 +56,18 @@ export function VehicleOptionCodes({ rpoCodes = [] }) {
             {decoded && !showDecoded ? (
               <Tooltip title={display} placement="top">
                 <Box>
-                  <OptionChip decoded label={showDecoded ? display : code} />
+                  <OptionChip
+                    decoded
+                    label={showDecoded ? display : code}
+                    isSubOption={isCodeSubOption(code)}
+                  />
                 </Box>
               </Tooltip>
             ) : (
               <OptionChip
                 decoded={decoded}
                 label={showDecoded ? display : code}
+                isSubOption={isCodeSubOption(code)}
               />
             )}
           </Grid>
@@ -65,4 +75,8 @@ export function VehicleOptionCodes({ rpoCodes = [] }) {
       </Grid>
     </Grid>
   );
+}
+
+function isCodeSubOption(code) {
+  return code.length === 4 && code.slice(-1) === "P";
 }
