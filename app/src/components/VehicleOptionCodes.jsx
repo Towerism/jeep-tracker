@@ -14,12 +14,12 @@ import { Switch } from "./Switch";
 
 function OptionChip({ decoded, showDecoded, code, isSubOption }) {
   const color =
-    isSubOption && decoded ? "info" : decoded ? "primary" : "inherit";
+    isSubOption && decoded ? "neutral" : decoded ? "neutral2" : "inherit";
   return (
     <ButtonGroup color={color} size="small" variant="contained">
       <Button>{code}</Button>
       {showDecoded && (
-        <Button color={isSubOption ? "neutral" : "neutral2"}>{decoded}</Button>
+        <Button color={isSubOption ? "neutral3" : "neutral4"}>{decoded}</Button>
       )}
     </ButtonGroup>
   );

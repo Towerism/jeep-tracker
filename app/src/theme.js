@@ -1,5 +1,5 @@
 import { createTheme } from "@mui/material/styles";
-import { blue, red, purple } from "@mui/material/colors";
+import { blue, red, deepPurple } from "@mui/material/colors";
 
 // Create a theme instance.
 const theme = createTheme({
@@ -18,10 +18,16 @@ const theme = createTheme({
       default: "#f6f6f6",
     },
     neutral: {
-      main: blue[100],
+      main: blue[200],
     },
     neutral2: {
-      main: purple[100],
+      main: deepPurple[200],
+    },
+    neutral3: {
+      main: blue[100],
+    },
+    neutral4: {
+      main: deepPurple[100],
     },
   },
 });
