@@ -1,7 +1,7 @@
 import axios from "axios";
 import { isCodeSubOption } from "~/src/codeSubOption";
 import sortBy from "lodash/sortBy";
-import { getOptionCodes } from "./optionCodes.server";
+import { aggregateOptions } from "./optionCodes.server";
 
 export async function getCotsOrderStatus(von, lastName) {
   let response;
@@ -48,18 +48,18 @@ export async function getCotsOrderStatus(von, lastName) {
     vin,
     von,
     dealer: dealerDetails,
-    ...(await getVehicleSpecs(image)),
+    ...(await getVehicleSpecs(modelYear, image)),
   };
 }
 
-async function getVehicleSpecs(imageUrl) {
+async function getVehicleSpecs(year, imageUrl) {
   const [, querystring] = imageUrl.split("?");
   const params = new Proxy(new URLSearchParams(querystring), {
     get: (searchParams, prop) => searchParams.get(prop),
   });
   const [, specModel] = params.vehicle.split("_");
   const [trimCode, ...rest] = params.sa.split(",");
-  const rpoMap = await getRpoMap();
+  const rpoMap = await getRpoMap(year);
   const rpoCodes = sortBy(
     [trimCode, ...rest].map((code) => {
       const transformedCode = isCodeSubOption(code) ? code.slice(0, -1) : code;
@@ -102,9 +102,9 @@ function getTimeline(orderstatus) {
   return result;
 }
 
-async function getRpoMap() {
+async function getRpoMap(year) {
   try {
-    return await getOptionCodes();
+    return await aggregateOptions(year);
   } catch (_) {
     return {};
   }

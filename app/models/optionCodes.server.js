@@ -3,24 +3,12 @@ import uniqBy from "lodash/uniqBy";
 import mapKeys from "lodash/mapKeys";
 import mapValues from "lodash/mapValues";
 
-let optionCodes;
-
-const YEARS = "2022|2023";
-
-export async function getOptionCodes() {
-  if (optionCodes) {
-    return optionCodes;
-  }
-  optionCodes = await aggregateOptions();
-  return optionCodes;
-}
-
-async function aggregateOptions() {
+export async function aggregateOptions(year) {
   const { data } = await axios.get(
     "https://www.jeep.com/hostd/api/launch-mode/modes.json"
   );
   const models = data.models.filter(({ ccode }) =>
-    new RegExp(`.{3}(${YEARS}).*`).test(ccode)
+    new RegExp(`.{3}${year}.*`).test(ccode)
   );
   const configurations = uniqBy(models, ({ ccode, llp }) => `${ccode}${llp}`);
   const optionsPromises = configurations.map(async ({ ccode, llp }) => {
