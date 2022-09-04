@@ -1,5 +1,7 @@
 import axios from "axios";
 import rpoMap from "~/src/rpoMap";
+import { isCodeSubOption } from "~/src/codeSubOption";
+import sortBy from "lodash/sortBy";
 
 export async function getCotsOrderStatus(von, lastName) {
   let response;
@@ -57,10 +59,19 @@ function getVehicleSpecs(imageUrl) {
   });
   const [, specModel] = params.vehicle.split("_");
   const [trimCode, ...rest] = params.sa.split(",");
-  const rpoCodes = [trimCode, ...rest].map((code) => {
-    const decoded = rpoMap[code] || rpoMap[code.slice(0, -1)];
-    return [code, decoded, decoded ? code + " - " + decoded : code];
-  });
+  const rpoCodes = sortBy(
+    [trimCode, ...rest].map((code) => {
+      const transformedCode = isCodeSubOption(code) ? code.slice(0, -1) : code;
+      const decoded = rpoMap[transformedCode] || "";
+      return {
+        code: transformedCode,
+        decoded,
+        display: decoded ? transformedCode + " - " + decoded : transformedCode,
+        isSubOption: isCodeSubOption(code),
+      };
+    }),
+    "isSubOption"
+  );
   return {
     trimCode,
     rpoCodes,

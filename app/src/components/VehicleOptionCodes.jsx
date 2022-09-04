@@ -1,14 +1,14 @@
 import { Box, Typography, Chip, Tooltip, Skeleton } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
 import { useState } from "react";
-import { useIsScreenshot } from "../hooks/useIsScreenshot";
+import { useIsScreenshot } from "~/src/hooks/useIsScreenshot";
 import { Switch } from "./Switch";
 
 function OptionChip({ decoded, label, isSubOption }) {
   return (
     <Chip
       label={label}
-      color={isSubOption && decoded ? "info" : decoded ? "warning" : "default"}
+      color={isSubOption && decoded ? "info" : decoded ? "primary" : "default"}
     />
   );
 }
@@ -20,7 +20,7 @@ export function VehicleOptionCodes({ rpoCodes = [] }) {
 
   let mappedOptions;
   if (showDecoded) {
-    mappedOptions = rpoCodes.filter(([, decoded]) => !!decoded);
+    mappedOptions = rpoCodes.filter(({ decoded }) => !!decoded);
   }
   const codes = mappedOptions ? mappedOptions : rpoCodes;
   return (
@@ -51,7 +51,7 @@ export function VehicleOptionCodes({ rpoCodes = [] }) {
               height={13}
             />
           ))}
-        {codes.map(([code, decoded, display]) => (
+        {codes.map(({ code, decoded, display, isSubOption }) => (
           <Grid key={code}>
             {decoded && !showDecoded ? (
               <Tooltip title={display} placement="top">
@@ -59,7 +59,7 @@ export function VehicleOptionCodes({ rpoCodes = [] }) {
                   <OptionChip
                     decoded
                     label={showDecoded ? display : code}
-                    isSubOption={isCodeSubOption(code)}
+                    isSubOption={isSubOption}
                   />
                 </Box>
               </Tooltip>
@@ -67,7 +67,7 @@ export function VehicleOptionCodes({ rpoCodes = [] }) {
               <OptionChip
                 decoded={decoded}
                 label={showDecoded ? display : code}
-                isSubOption={isCodeSubOption(code)}
+                isSubOption={isSubOption}
               />
             )}
           </Grid>
@@ -75,8 +75,4 @@ export function VehicleOptionCodes({ rpoCodes = [] }) {
       </Grid>
     </Grid>
   );
-}
-
-function isCodeSubOption(code) {
-  return code.length === 4 && code.slice(-1) === "P";
 }

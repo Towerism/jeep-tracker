@@ -20,6 +20,7 @@
     "@remix-run/serve": "^1.6.8",
     "axios": "^0.27.2",
     "copy-image-clipboard": "^2.1.2",
+    "lodash": "^4.17.21",
     "luxon": "^3.0.2",
     "pdf.js-extract": "^0.2.0",
     "puppeteer": "^16.2.0",
