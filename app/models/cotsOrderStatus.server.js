@@ -70,7 +70,7 @@ function getVehicleSpecs(imageUrl) {
         isSubOption: isCodeSubOption(code),
       };
     }),
-    "isSubOption"
+    ({ isSubOption, decoded }) => isSubOption || !decoded
   );
   return {
     trimCode,
