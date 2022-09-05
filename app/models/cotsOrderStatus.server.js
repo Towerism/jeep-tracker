@@ -58,12 +58,12 @@ async function getVehicleSpecs(year, imageUrl) {
     get: (searchParams, prop) => searchParams.get(prop),
   });
   const [, specModel] = params.vehicle.split("_");
-  const [trimCode, ...rest] = params.sa.split(",");
-  const rpoMap = await getRpoMap(year);
+  const [trimCode, lowerLevelPackage, ...rest] = params.sa.split(",");
+  const { fullMap, specificMap } = await getRpoMap(year, lowerLevelPackage);
   const rpoCodes = sortBy(
     [trimCode, ...rest].map((code) => {
       const transformedCode = isCodeSubOption(code) ? code.slice(0, -1) : code;
-      const decoded = rpoMap[transformedCode] || "";
+      const decoded = fullMap[transformedCode] || "";
       return {
         code: transformedCode,
         decoded,
@@ -73,12 +73,16 @@ async function getVehicleSpecs(year, imageUrl) {
     }),
     ({ isSubOption, decoded }) => isSubOption || !decoded
   );
+  const paintName = specificMap[params.paint];
+  const fabricName = specificMap[params.fabric];
   return {
     trimCode,
     rpoCodes,
     specModel,
-    paintCode: params.paint,
-    interiorCode: params.fabric,
+    paintCode: paintName ? params.paint + " - " + paintName : params.paint,
+    interiorCode: fabricName
+      ? params.fabric + " - " + fabricName
+      : params.fabric,
   };
 }
 
@@ -102,9 +106,9 @@ function getTimeline(orderstatus) {
   return result;
 }
 
-async function getRpoMap(year) {
+async function getRpoMap(year, lowerLevelPackage) {
   try {
-    return await aggregateOptions(year);
+    return await aggregateOptions(year, lowerLevelPackage);
   } catch (_) {
     return {};
   }

@@ -3,7 +3,7 @@ import uniqBy from "lodash/uniqBy";
 import mapKeys from "lodash/mapKeys";
 import mapValues from "lodash/mapValues";
 
-export async function aggregateOptions(year) {
+export async function aggregateOptions(year, lowerLevelPackage) {
   const { data } = await axios.get(
     "https://www.jeep.com/hostd/api/launch-mode/modes.json"
   );
@@ -21,13 +21,13 @@ export async function aggregateOptions(year) {
     } catch (err) {
       configurationOptions = "error";
     }
-    return configurationOptions;
+    return [`${ccode}-${llp}`, configurationOptions];
   });
   const optionsObjects = await Promise.all(optionsPromises);
   const noErrors = optionsObjects.filter((options) => options !== "error");
-  return noErrors.reduce((acc, curr) => {
+  const fullMap = noErrors.reduce((acc, [, options]) => {
     let normalizedOptions = mapKeys(
-      curr,
+      options,
       (_, optionName) => optionName.split("-")[0] || optionName
     );
     normalizedOptions = mapValues(
@@ -36,4 +36,29 @@ export async function aggregateOptions(year) {
     );
     return Object.assign(acc, normalizedOptions);
   }, {});
+  const specificMap = noErrors.reduce((acc, [key, options]) => {
+    const [, llp] = key.split("-");
+    console.log(`${lowerLevelPackage} === ${llp}?`);
+    if (llp !== lowerLevelPackage) {
+      return acc;
+    }
+    let normalizedOptions = mapKeys(
+      options,
+      (_, optionName) => optionName.split("-")[0] || optionName
+    );
+    normalizedOptions = mapKeys(
+      normalizedOptions,
+      (_, optionName) => optionName.split("_")[0] || optionName
+    );
+    normalizedOptions = mapValues(
+      normalizedOptions,
+      ({ description }) => description
+    );
+    return Object.assign(acc, normalizedOptions);
+  }, {});
+  console.log(lowerLevelPackage, specificMap);
+  return {
+    fullMap,
+    specificMap,
+  };
 }
