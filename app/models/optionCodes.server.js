@@ -55,7 +55,6 @@ export async function aggregateOptions(year, lowerLevelPackage) {
     );
     return Object.assign(acc, normalizedOptions);
   }, {});
-  console.log(lowerLevelPackage, specificMap);
   return {
     fullMap,
     specificMap,
