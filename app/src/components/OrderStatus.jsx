@@ -84,7 +84,12 @@ export function OrderStatus({ orderStatus, lastName }) {
             )}
           </Box>
         )}
-        <Grid container ref={mainRef} id="screenshot-hook" sx={{ padding: 2 }}>
+        <Grid
+          container
+          ref={mainRef}
+          id="screenshot-hook"
+          sx={{ padding: 2, width: "100%" }}
+        >
           <Grid container sx={{ width: "100%" }}>
             <Grid md={6}>
               {isScreenshot && <LogoButton big sx={{ float: true }} />}

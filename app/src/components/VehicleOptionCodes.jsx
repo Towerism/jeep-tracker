@@ -48,21 +48,21 @@ export function VehicleOptionCodes({ rpoCodes = [] }) {
       width: 100,
     },
     {
-      field: "isSubOption",
-      headerName: "Packaged (P)?",
-      width: 120,
-      valueGetter: ({ row }) => (row.isSubOption ? "P" : ""),
-    },
-    {
       field: "decoded",
       headerName: "Description",
       width: 400,
       valueGetter: ({ row }) => (row.decoded ? row.decoded : "--"),
     },
+    {
+      field: "isSubOption",
+      headerName: "Packaged (P)?",
+      width: 120,
+      valueGetter: ({ row }) => (row.isSubOption ? "P" : ""),
+    },
   ];
 
   return (
-    <Grid container sx={isScreenshot ? { mt: -10 } : {}}>
+    <Grid container xs={12} sx={isScreenshot ? { mt: -10 } : {}}>
       <Grid sx={{ my: 2 }} xs={12}>
         <Typography align="center" variant="h4">
           Option codes
@@ -120,8 +120,8 @@ export function VehicleOptionCodes({ rpoCodes = [] }) {
         </Grid>
       )}
       {showTable && (
-        <Grid container xs={12}>
-          <Grid xs={12}>
+        <Grid container xs={12} justifyContent="center">
+          <Grid xs={12} md={7}>
             <Box sx={{ height: 400, width: "100%", backgroundColor: "#fff" }}>
               <DataGrid
                 rows={codes}
