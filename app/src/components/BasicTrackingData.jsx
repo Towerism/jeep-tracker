@@ -92,11 +92,11 @@ function calculateDays({ arrivalDate, statusUpdateDate }) {
   const now = DateTime.now();
 
   return {
-    daysUntilArrival: getDays(arrival.diff(now)),
-    daysSinceLastMilestone: getDays(now.diff(lastUpdate)),
+    daysUntilArrival: getDays(arrival.diff(now), "ceil"),
+    daysSinceLastMilestone: getDays(now.diff(lastUpdate), "floor"),
   };
 }
 
-function getDays(duration) {
-  return Math.floor(duration.as("days"));
+function getDays(duration, roundingOperation) {
+  return Math[roundingOperation](duration.as("days"));
 }
