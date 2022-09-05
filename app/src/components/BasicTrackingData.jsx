@@ -22,21 +22,10 @@ export function BasicTrackingData({ data, hideSensitiveData }) {
 
   const { daysUntilArrival, daysSinceLastMilestone } = calculateDays(data);
 
-  const [displayVin, setDisplayVin] = useState(vin);
   const [hideVon, setHideVon] = useState(hideSensitiveData);
   const [hideVin, setHideVin] = useState(hideSensitiveData);
 
   const isScreenshot = useIsScreenshot();
-
-  useEffect(() => {
-    if (!vin) {
-      setDisplayVin("Not yet");
-    } else if (hideVin) {
-      setDisplayVin();
-    } else {
-      setDisplayVin(vin);
-    }
-  }, [vin, hideVin]);
 
   return (
     <Box>
