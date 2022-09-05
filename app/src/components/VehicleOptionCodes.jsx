@@ -48,9 +48,16 @@ export function VehicleOptionCodes({ rpoCodes = [] }) {
       width: 100,
     },
     {
+      field: "isSubOption",
+      headerName: "Packaged (P)?",
+      width: 120,
+      valueGetter: ({ row }) => (row.isSubOption ? "P" : ""),
+    },
+    {
       field: "decoded",
       headerName: "Description",
       width: 400,
+      valueGetter: ({ row }) => (row.decoded ? row.decoded : "--"),
     },
   ];
 
