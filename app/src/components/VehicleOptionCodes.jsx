@@ -11,22 +11,42 @@ import Grid from "@mui/material/Unstable_Grid2";
 import { useState } from "react";
 import { useIsScreenshot } from "~/src/hooks/useIsScreenshot";
 import { Switch } from "./Switch";
+import Dialog from "./Dialog";
 
-function OptionChip({ decoded, showDecoded, code, isSubOption }) {
+function OptionChip({
+  decoded,
+  showDecoded,
+  code,
+  isSubOption,
+  extendedDescription,
+}) {
   const color =
     isSubOption && decoded ? "neutral" : decoded ? "neutral2" : "inherit";
+  const [open, setOpen] = useState(false);
+
   return (
-    <ButtonGroup color={color} size="small" variant="contained">
-      <Button>{code}</Button>
-      {showDecoded && (
-        <Button
-          color={isSubOption ? "neutral3" : "neutral4"}
-          sx={{ textTransform: "none" }}
-        >
-          {decoded}
-        </Button>
+    <>
+      <ButtonGroup color={color} size="small" variant="contained">
+        <Button onClick={() => setOpen(true)}>{code}</Button>
+        {showDecoded && (
+          <Button
+            color={isSubOption ? "neutral3" : "neutral4"}
+            sx={{ textTransform: "none" }}
+            onClick={() => setOpen(true)}
+          >
+            {decoded}
+          </Button>
+        )}
+      </ButtonGroup>
+      {extendedDescription && (
+        <Dialog
+          title={decoded}
+          open={open}
+          onClose={() => setOpen(false)}
+          body={extendedDescription}
+        />
       )}
-    </ButtonGroup>
+    </>
   );
 }
 
@@ -115,6 +135,7 @@ export function VehicleOptionCodes({ rpoCodes = [] }) {
                         decoded={decoded}
                         code={code + "*"}
                         showDecoded={showDecoded}
+                        extendedDescription={extendedDescription}
                         isSubOption={isSubOption}
                       />
                     </Box>

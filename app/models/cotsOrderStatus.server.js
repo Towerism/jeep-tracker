@@ -70,7 +70,10 @@ async function getVehicleSpecs(year, imageUrl) {
         display: decoded ? transformedCode + " -- " + decoded : transformedCode,
         isSubOption: isCodeSubOption(code),
         extendedDescription:
-          specificMap[transformedCode]?.extendedDescription ?? "",
+          specificMap[transformedCode]?.extendedDescription.replace(
+            /<br>/g,
+            "\n"
+          ) ?? "",
       };
     }),
     ({ isSubOption, decoded }) => isSubOption || !decoded
