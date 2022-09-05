@@ -12,7 +12,7 @@ export async function getCotsOrderStatus(von, lastName) {
     );
   } catch (err) {
     throw new Response(
-      "An error occurred while fetching customer order data.",
+      "There was no data available. Please either check VON and last name or try again later.",
       { status: 500 }
     );
   }
