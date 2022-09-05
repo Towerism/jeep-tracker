@@ -38,7 +38,6 @@ export async function aggregateOptions(year, lowerLevelPackage) {
   }, {});
   const specificMap = noErrors.reduce((acc, [key, options]) => {
     const [, llp] = key.split("-");
-    console.log(`${lowerLevelPackage} === ${llp}?`);
     if (llp !== lowerLevelPackage) {
       return acc;
     }
