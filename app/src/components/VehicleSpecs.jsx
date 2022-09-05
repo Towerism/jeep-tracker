@@ -17,8 +17,8 @@ export function VehicleSpecs({ vehicleSpecs }) {
     <Grid container spacing={2} justifyContent="center">
       <BasicStatusCard title="Year">{modelYear}</BasicStatusCard>
       <BasicStatusCard title="Make">{brandName}</BasicStatusCard>
-      <BasicStatusCard title="Model code">{specModel}</BasicStatusCard>
-      <BasicStatusCard title="Trim code">{trimCode}</BasicStatusCard>
+      <BasicStatusCard title="Gen code">{specModel}</BasicStatusCard>
+      <BasicStatusCard title="Model code">{trimCode}</BasicStatusCard>
       <BasicStatusCard title="Model" md={10}>
         {modelName}
       </BasicStatusCard>

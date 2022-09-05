@@ -61,7 +61,7 @@ async function getVehicleSpecs(year, imageUrl) {
   const [trimCode, lowerLevelPackage, ...rest] = params.sa.split(",");
   const { fullMap, specificMap } = await getRpoMap(year, lowerLevelPackage);
   const rpoCodes = sortBy(
-    [trimCode, ...rest].map((code) => {
+    [...rest].map((code) => {
       const transformedCode = isCodeSubOption(code) ? code.slice(0, -1) : code;
       const decoded = fullMap[transformedCode] || "";
       return {
@@ -73,6 +73,16 @@ async function getVehicleSpecs(year, imageUrl) {
     }),
     ({ isSubOption, decoded }) => isSubOption || !decoded
   );
+  function unshiftSimpleDecode(code, decoded) {
+    rpoCodes.unshift({
+      code,
+      decoded: `${decoded} ${code}`,
+      display: `${code} -- ${decoded} ${code}`,
+      isSubOption: false,
+    });
+  }
+  unshiftSimpleDecode(lowerLevelPackage, "Lower level package");
+  unshiftSimpleDecode(trimCode, "Model code");
   const paintName = specificMap[params.paint];
   const fabricName = specificMap[params.fabric];
   return {
