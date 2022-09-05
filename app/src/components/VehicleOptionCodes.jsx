@@ -62,7 +62,7 @@ export function VehicleOptionCodes({ rpoCodes = [] }) {
   ];
 
   return (
-    <Grid container xs={12} sx={isScreenshot ? { mt: -10 } : {}}>
+    <Grid container xs={12} sx={isScreenshot ? { mt: -2 } : {}}>
       <Grid sx={{ my: 2 }} xs={12}>
         <Typography align="center" variant="h4">
           Option codes
