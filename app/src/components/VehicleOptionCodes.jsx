@@ -94,29 +94,42 @@ export function VehicleOptionCodes({ rpoCodes = [] }) {
                 height={26}
               />
             ))}
-          {codes.map(({ code, decoded, display, isSubOption }) => (
-            <Grid key={code}>
-              {decoded && !showDecoded ? (
-                <Tooltip title={display} placement="top">
-                  <Box>
-                    <OptionChip
-                      decoded
-                      code={code}
-                      showDeocded={showDecoded}
-                      isSubOption={isSubOption}
-                    />
-                  </Box>
-                </Tooltip>
-              ) : (
-                <OptionChip
-                  decoded={decoded}
-                  code={code}
-                  showDecoded={showDecoded}
-                  isSubOption={isSubOption}
-                />
-              )}
-            </Grid>
-          ))}
+          {codes.map(
+            ({ code, decoded, display, isSubOption, extendedDescription }) => (
+              <Grid key={code}>
+                {decoded && !showDecoded ? (
+                  <Tooltip title={display} placement="top">
+                    <Box>
+                      <OptionChip
+                        decoded
+                        code={code}
+                        showDeocded={showDecoded}
+                        isSubOption={isSubOption}
+                      />
+                    </Box>
+                  </Tooltip>
+                ) : extendedDescription ? (
+                  <Tooltip title="Click for more info." placement="top">
+                    <Box>
+                      <OptionChip
+                        decoded={decoded}
+                        code={code + "*"}
+                        showDecoded={showDecoded}
+                        isSubOption={isSubOption}
+                      />
+                    </Box>
+                  </Tooltip>
+                ) : (
+                  <OptionChip
+                    decoded={decoded}
+                    code={code}
+                    showDecoded={showDecoded}
+                    isSubOption={isSubOption}
+                  />
+                )}
+              </Grid>
+            )
+          )}
         </Grid>
       )}
       {showTable && (

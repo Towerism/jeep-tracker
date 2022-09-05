@@ -63,12 +63,14 @@ async function getVehicleSpecs(year, imageUrl) {
   const rpoCodes = sortBy(
     [...rest].map((code) => {
       const transformedCode = isCodeSubOption(code) ? code.slice(0, -1) : code;
-      const decoded = fullMap[transformedCode] || "";
+      const decoded = fullMap[transformedCode]?.description ?? "";
       return {
         code: transformedCode,
         decoded,
         display: decoded ? transformedCode + " -- " + decoded : transformedCode,
         isSubOption: isCodeSubOption(code),
+        extendedDescription:
+          specificMap[transformedCode]?.extendedDescription ?? "",
       };
     }),
     ({ isSubOption, decoded }) => isSubOption || !decoded
@@ -83,8 +85,8 @@ async function getVehicleSpecs(year, imageUrl) {
   }
   unshiftSimpleDecode(lowerLevelPackage, "Lower level package");
   unshiftSimpleDecode(trimCode, "Model code");
-  const paintName = specificMap[params.paint];
-  const fabricName = specificMap[params.fabric];
+  const paintName = specificMap[params.paint]?.description;
+  const fabricName = specificMap[params.fabric]?.description;
   return {
     trimCode,
     rpoCodes,

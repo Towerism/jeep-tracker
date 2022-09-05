@@ -30,10 +30,6 @@ export async function aggregateOptions(year, lowerLevelPackage) {
       options,
       (_, optionName) => optionName.split("-")[0] || optionName
     );
-    normalizedOptions = mapValues(
-      normalizedOptions,
-      ({ description }) => description
-    );
     return Object.assign(acc, normalizedOptions);
   }, {});
   const specificMap = noErrors.reduce((acc, [key, options]) => {
@@ -48,10 +44,6 @@ export async function aggregateOptions(year, lowerLevelPackage) {
     normalizedOptions = mapKeys(
       normalizedOptions,
       (_, optionName) => optionName.split("_")[0] || optionName
-    );
-    normalizedOptions = mapValues(
-      normalizedOptions,
-      ({ description }) => description
     );
     return Object.assign(acc, normalizedOptions);
   }, {});
