@@ -32,7 +32,7 @@ export function BasicTrackingData({ data, hideSensitiveData }) {
     if (!vin) {
       setDisplayVin("Not yet");
     } else if (hideVin) {
-      setDisplayVin(`xxxxxxxxxxx${vin.slice(11)}`);
+      setDisplayVin();
     } else {
       setDisplayVin(vin);
     }
@@ -66,7 +66,7 @@ export function BasicTrackingData({ data, hideSensitiveData }) {
           ago
         </BasicStatusCard>
         <BasicStatusCard title="VIN" xs={12} md={10}>
-          {displayVin}
+          {!vin ? "Not yet" : hideVin ? "Hidden" : vin}
         </BasicStatusCard>
         <DocumentCard
           title="Window sticker"
