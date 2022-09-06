@@ -121,7 +121,7 @@ export function VehicleOptionCodes({ rpoCodes = [] }) {
       )}
       {showTable && (
         <Grid container xs={12} justifyContent="center">
-          <Grid xs={12} md={7}>
+          <Grid xs={12} lg={7}>
             <Box sx={{ height: 400, width: "100%", backgroundColor: "#fff" }}>
               <DataGrid
                 rows={codes}
