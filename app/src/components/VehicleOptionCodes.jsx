@@ -5,6 +5,7 @@ import {
   Skeleton,
   ButtonGroup,
   Button,
+  Paper,
 } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import Grid from "@mui/material/Unstable_Grid2";
@@ -122,14 +123,14 @@ export function VehicleOptionCodes({ rpoCodes = [] }) {
       {showTable && (
         <Grid container xs={12} justifyContent="center">
           <Grid xs={12} lg={7}>
-            <Box sx={{ height: 400, width: "100%", backgroundColor: "#fff" }}>
+            <Paper sx={{ height: 400, width: "100%" }} elevation={1}>
               <DataGrid
                 rows={codes}
                 columns={columns}
                 rowsPerPageOptions={[5, 10, 25, 50, 100]}
                 getRowId={({ code }) => code}
               />
-            </Box>
+            </Paper>
           </Grid>
         </Grid>
       )}
